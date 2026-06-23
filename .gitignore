@@ -220,3 +220,4 @@ __marimo__/
 # Project data files
 data/raw/*.csv
 data/processed/*.parquet
+data/features/*.parquet
