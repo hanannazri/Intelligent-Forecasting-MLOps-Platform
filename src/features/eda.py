@@ -320,6 +320,16 @@ print(
 
 print(missing_price_products)
 
+print(df["sales"].describe())
+
+print("\n" + "="*60)
+print(
+    df["sales"].quantile(
+        [0.90,0.95,0.99,0.999]
+    )
+)
+
+print(df["sell_price"].describe())
 
 # =====================================================
 # FINAL SUMMARY

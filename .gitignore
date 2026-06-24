@@ -221,3 +221,8 @@ __marimo__/
 data/raw/*.csv
 data/processed/*.parquet
 data/features/*.parquet
+
+#mlflow and report
+mlruns/
+mlflow.db
+reports/
