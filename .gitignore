@@ -217,11 +217,13 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Project data files
-data/raw/*.csv
-data/processed/*.parquet
-data/features/*.parquet
-
-#mlflow and report
 mlruns/
 mlflow.db
+
+models/
+
+reports/*.csv
+
+data/raw/
+data/processed/
+data/features/
