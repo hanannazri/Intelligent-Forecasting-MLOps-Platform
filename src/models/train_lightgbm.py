@@ -4,7 +4,8 @@ import numpy as np
 import mlflow
 import mlflow.lightgbm
 import lightgbm as lgb
-
+import joblib
+from pathlib import Path
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 
@@ -95,16 +96,18 @@ def main():
     print(feature_cols)
 
     model = lgb.LGBMRegressor(
-        objective="regression",
-        n_estimators=710,
-        learning_rate=0.061276667676087915,
-        num_leaves=30,
-        max_depth=12,
-        min_child_samples=62,
-        subsample=0.9902294402093923,
-        colsample_bytree=0.9425387261963855,
-        reg_alpha=0.6143714201894848,
-        reg_lambda=0.27607575777962956,
+        objective="regression_l1",
+        metric="mae",
+        boosting_type="gbdt",
+        n_estimators=1932,
+        learning_rate=0.03330732614147012,
+        num_leaves=200,
+        max_depth=9,
+        min_child_samples=98,
+        subsample=0.537264052769952,
+        colsample_bytree=0.5061555847824688,
+        reg_alpha=1.475649304728376,
+        reg_lambda=6.379136939832477e-05,
         random_state=42,
         n_jobs=-1,
         verbose=-1)
@@ -162,7 +165,13 @@ def main():
             importance_output_path,
             index=False
             )
+        MODEL_DIR = Path("models")
+        MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
+        joblib.dump(model, MODEL_DIR / "lightgbm_model.pkl")
+
+        print("LightGBM model saved to models/lightgbm_model.pkl")
+        
         mlflow.log_artifact(importance_output_path)
 
         print("\nFeature importance saved to:")

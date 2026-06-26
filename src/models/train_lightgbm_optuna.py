@@ -1,238 +1,412 @@
-import os
 import pandas as pd
 import numpy as np
+import lightgbm as lgb
 import optuna
 import mlflow
 import mlflow.lightgbm
-import lightgbm as lgb
+import joblib
+import json
+import os
+import signal
+import sys
+from sklearn.metrics import mean_absolute_error
 
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+optuna.logging.set_verbosity(optuna.logging.WARNING)
 
+# =====================================================
+# CONFIGURATION
+# =====================================================
 
-DATA_PATH = "data/features/sales_ca_1_foods_features.parquet"
-EXPERIMENT_NAME = "retail-demand-forecasting"
-BASELINE_MAE = 1.3836
-N_TRIALS = 15
+FEATURES_PATH   = "data/features/sales_ca_1_foods_features.parquet"
+MODEL_PATH      = "models/lightgbm_model.pkl"
+PARAMS_PATH     = "models/best_params.json"
 
+TEST_START      = "2016-03-28"
+TEST_END        = "2016-04-24"
 
-def calculate_mape(y_true, y_pred):
-    y_true = np.array(y_true)
-    y_pred = np.array(y_pred)
-    mask = y_true != 0
-    if mask.sum() == 0:
-        return np.nan
-    return np.mean(np.abs((y_true[mask] - y_pred[mask]) / y_true[mask])) * 100
+# Set this to 20 — easy to stop early with Ctrl+C
+# Every completed trial is already saved in MLflow
+N_TRIALS        = 15
 
+MLFLOW_EXPERIMENT = "LightGBM_Optuna_Tuning"
 
-def calculate_wape(y_true, y_pred):
-    return (np.sum(np.abs(y_true - y_pred)) / np.sum(np.abs(y_true))) * 100
+os.makedirs("models", exist_ok=True)
+os.makedirs("data/predictions", exist_ok=True)
 
+# =====================================================
+# GRACEFUL FORCE STOP
+# =====================================================
+# Press Ctrl+C at any time.
+# Script will finish the CURRENT trial, then stop.
+# Everything already logged in MLflow is safe.
+# =====================================================
 
-def calculate_smape(y_true, y_pred):
-    denominator = np.abs(y_true) + np.abs(y_pred)
-    return np.mean(
-        2 * np.abs(y_pred - y_true) / (denominator + 1e-8)
-    ) * 100
+stop_flag = False
 
+def handle_interrupt(sig, frame):
+    global stop_flag
+    print("\n\nCtrl+C detected — finishing current trial then stopping...")
+    print("All completed trials are already saved in MLflow.\n")
+    stop_flag = True
 
-def calculate_rmsse(y_true, y_pred, y_train):
-    numerator = np.mean((y_true - y_pred) ** 2)
-    denominator = np.mean(np.diff(y_train) ** 2)
+signal.signal(signal.SIGINT, handle_interrupt)
 
-    if denominator == 0:
-        return np.nan
+# =====================================================
+# MLFLOW SETUP
+# =====================================================
 
-    return np.sqrt(numerator / denominator)
+mlflow.set_experiment(MLFLOW_EXPERIMENT)
 
+print(f"MLflow experiment: {MLFLOW_EXPERIMENT}")
+print(f"MLflow UI: run 'mlflow ui' in terminal to view\n")
 
-def load_data():
-    print("Loading feature dataset...")
+# =====================================================
+# LOAD DATA
+# =====================================================
 
-    df = pd.read_parquet(DATA_PATH)
-    df["date"] = pd.to_datetime(df["date"])
-    df = df.dropna().reset_index(drop=True)
+print("Loading feature dataset...")
 
-    max_date = df["date"].max()
-    test_start_date = max_date - pd.Timedelta(days=27)
+df = pd.read_parquet(FEATURES_PATH)
+df["date"] = pd.to_datetime(df["date"])
 
-    train_df = df[df["date"] < test_start_date].copy()
-    test_df = df[df["date"] >= test_start_date].copy()
+print(f"Dataset shape: {df.shape}")
 
-    target = "sales"
+# =====================================================
+# FEATURES
+# =====================================================
 
-    drop_cols = [
-        "sales",
-        "date",
-        "id",
-        "event_name_1",
-        "event_type_1",
-        "event_name_2",
-        "event_type_2",
-        "d",
-        "weekday",
-    ]
+ALL_FEATURES = [
+    # Lags
+    "lag_1", "lag_2", "lag_3", "lag_7", "lag_14",
+    "lag_28", "lag_35", "lag_42", "lag_49", "lag_56",
+    "lag_91", "lag_182", "lag_364", "lag_365", "lag_371",
 
-    feature_cols = [col for col in df.columns if col not in drop_cols]
+    # Rolling mean
+    "rolling_mean_3", "rolling_mean_7", "rolling_mean_14",
+    "rolling_mean_28", "rolling_mean_56",
 
-    categorical_cols = [
-        "item_id",
-        "dept_id",
-        "cat_id",
-        "store_id",
-        "state_id",
-    ]
+    # Rolling std
+    "rolling_std_3", "rolling_std_7", "rolling_std_14",
+    "rolling_std_28", "rolling_std_56",
 
-    categorical_cols = [
-        col for col in categorical_cols
-        if col in feature_cols
-    ]
+    # Rolling skewness
+    "rolling_skew_14", "rolling_skew_28", "rolling_skew_56",
 
-    for col in categorical_cols:
-        train_df[col] = train_df[col].astype("category")
-        test_df[col] = test_df[col].astype("category")
+    # Item level
+    "item_avg_sales", "item_median_sales", "item_max_sales",
+    "item_zero_sales_ratio", "days_since_last_sale",
 
-    X_train = train_df[feature_cols]
-    y_train = train_df[target]
+    # Dept level
+    "dept_daily_sales", "dept_avg_sales",
+    "dept_rolling_mean_7", "dept_rolling_mean_28",
+    "dept_rolling_std_7", "dept_rolling_std_28",
+    "dept_cv_7", "dept_cv_28",
+    "dept_momentum_7_28", "dept_momentum_pct_7_28",
 
-    X_test = test_df[feature_cols]
-    y_test = test_df[target]
+    # Cat level
+    "cat_avg_sales",
+    "cat_rolling_mean_7", "cat_rolling_mean_28",
+    "cat_rolling_std_7", "cat_rolling_std_28",
+    "cat_cv_7", "cat_cv_28",
 
-    print("Train shape:", X_train.shape)
-    print("Test shape:", X_test.shape)
-    print("Number of features:", len(feature_cols))
+    # Hierarchy
+    "item_share_of_dept", "item_share_of_cat",
 
-    return X_train, y_train, X_test, y_test, feature_cols, categorical_cols
+    # Price
+    "sell_price", "item_avg_price", "price_vs_avg", "price_vs_max",
+    "previous_price", "price_change", "price_change_pct",
+    "is_price_drop", "is_price_increase",
+    "price_lag_7", "price_lag_28",
+    "price_change_7d", "price_change_28d",
+    "price_change_pct_7d", "price_change_pct_28d",
+    "days_since_price_change",
 
+    # Calendar
+    "is_weekend", "day_of_week", "day_of_month",
+    "week_of_year", "month", "quarter",
+    "is_month_start", "is_month_end",
 
-def main():
-    X_train, y_train, X_test, y_test, feature_cols, categorical_cols = load_data()
+    # Events
+    "has_event", "is_sporting", "is_cultural",
+    "is_national", "is_religious",
+    "days_to_next_event", "days_since_last_event",
 
-    mlflow.set_experiment(EXPERIMENT_NAME)
+    # SNAP
+    "snap_CA",
+    "snap_lag7_interaction", "snap_lag28_interaction",
+    "snap_rolling_mean_interaction", "snap_momentum_interaction",
+    "snap_count_7", "snap_count_28",
 
-    def objective(trial):
-        params = {
-            "objective": "regression",
-            "n_estimators": trial.suggest_int("n_estimators", 300, 900),
-            "learning_rate": trial.suggest_float("learning_rate", 0.02, 0.08),
-            "num_leaves": trial.suggest_int("num_leaves", 20, 80),
-            "max_depth": trial.suggest_int("max_depth", 4, 12),
-            "min_child_samples": trial.suggest_int("min_child_samples", 20, 120),
-            "subsample": trial.suggest_float("subsample", 0.7, 1.0),
-            "colsample_bytree": trial.suggest_float("colsample_bytree", 0.7, 1.0),
-            "reg_alpha": trial.suggest_float("reg_alpha", 0.0, 1.0),
-            "reg_lambda": trial.suggest_float("reg_lambda", 0.0, 1.0),
-            "random_state": 42,
-            "n_jobs": -1,
-            "verbose": -1,
-        }
+    # Momentum
+    "sales_momentum_7", "sales_momentum_28",
+    "sales_momentum_pct_7", "sales_momentum_pct_28",
+    "sales_acceleration", "sales_acceleration_pct",
 
-        model = lgb.LGBMRegressor(**params)
+    # Ratios
+    "week_ratio", "month_ratio", "yoy_ratio",
+    "price_elasticity_proxy",
 
-        model.fit(
-            X_train,
-            y_train,
-            categorical_feature=categorical_cols
-        )
+    # Volatility
+    "cv_7", "cv_28",
+]
 
-        preds = model.predict(X_test)
-        preds = np.maximum(preds, 0)
+FEATURE_COLS = [f for f in ALL_FEATURES if f in df.columns]
+print(f"Features available: {len(FEATURE_COLS)}")
 
-        mae = mean_absolute_error(y_test, preds)
+# =====================================================
+# TRAIN / TEST SPLIT
+# =====================================================
 
-        return mae
+print("\nSplitting data...")
 
-    print("\nStarting Optuna tuning...")
+train_df = df[df["date"] < TEST_START].copy()
+test_df  = df[(df["date"] >= TEST_START) & (df["date"] <= TEST_END)].copy()
 
-    study = optuna.create_study(direction="minimize")
-    study.optimize(objective, n_trials=N_TRIALS)
+X_train = train_df[FEATURE_COLS].fillna(0)
+y_train = train_df["sales"]
+X_test  = test_df[FEATURE_COLS].fillna(0)
+y_test  = test_df["sales"]
 
-    print("\nBest Trial:")
-    print("Best MAE:", study.best_value)
-    print("Best Params:")
-    print(study.best_params)
+print(f"Train rows: {len(X_train):,}")
+print(f"Test rows:  {len(X_test):,}")
 
-    best_params = study.best_params
+baseline_mae = mean_absolute_error(y_test, np.full(len(y_test), y_train.mean()))
+print(f"Baseline MAE: {baseline_mae:.4f}")
 
-    final_params = {
-        **best_params,
-        "objective": "regression",
-        "random_state": 42,
-        "n_jobs": -1,
-        "verbose": -1,
+lgb_train = lgb.Dataset(X_train, label=y_train, free_raw_data=False)
+lgb_valid = lgb.Dataset(X_test,  label=y_test,  free_raw_data=False, reference=lgb_train)
+
+# =====================================================
+# OPTUNA OBJECTIVE WITH MLFLOW LOGGING
+# =====================================================
+# Every trial is logged as a separate MLflow run.
+# Even if you Ctrl+C, completed trials are saved.
+# =====================================================
+
+def objective(trial):
+
+    # Stop gracefully on Ctrl+C
+    if stop_flag:
+        raise optuna.exceptions.OptunaError("Stopped by user.")
+
+    params = {
+        # Fixed
+        "objective":     "regression_l1",
+        "metric":        "mae",
+        "verbosity":     -1,
+        "boosting_type": "gbdt",
+        "n_jobs":        -1,
+        "random_state":  42,
+
+        # Tuned by Optuna
+        "num_leaves":        trial.suggest_int("num_leaves", 20, 300),
+        "max_depth":         trial.suggest_int("max_depth", 3, 12),
+        "min_child_samples": trial.suggest_int("min_child_samples", 10, 100),
+        "learning_rate":     trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+        "n_estimators":      trial.suggest_int("n_estimators", 200, 2000),
+        "reg_alpha":         trial.suggest_float("reg_alpha", 1e-8, 10.0, log=True),
+        "reg_lambda":        trial.suggest_float("reg_lambda", 1e-8, 10.0, log=True),
+        "min_split_gain":    trial.suggest_float("min_split_gain", 0.0, 1.0),
+        "subsample":         trial.suggest_float("subsample", 0.5, 1.0),
+        "subsample_freq":    1,
+        "colsample_bytree":  trial.suggest_float("colsample_bytree", 0.5, 1.0),
+        "max_bin":           trial.suggest_int("max_bin", 100, 500),
     }
 
-    final_model = lgb.LGBMRegressor(**final_params)
+    # --- Each trial = one MLflow run ---
+    with mlflow.start_run(run_name=f"trial_{trial.number}"):
 
-    with mlflow.start_run(run_name="lightgbm_optuna_tuned"):
-        mlflow.log_param("model_type", "LightGBM_Optuna_Tuned")
-        mlflow.log_param("baseline_mae", BASELINE_MAE)
-        mlflow.log_param("n_trials", N_TRIALS)
-        mlflow.log_param("test_period_days", 28)
-        mlflow.log_param("num_features", len(feature_cols))
+        # Log all hyperparameters
+        mlflow.log_params({
+            "trial_number":    trial.number,
+            "num_leaves":      params["num_leaves"],
+            "max_depth":       params["max_depth"],
+            "min_child_samples": params["min_child_samples"],
+            "learning_rate":   params["learning_rate"],
+            "n_estimators":    params["n_estimators"],
+            "reg_alpha":       params["reg_alpha"],
+            "reg_lambda":      params["reg_lambda"],
+            "min_split_gain":  params["min_split_gain"],
+            "subsample":       params["subsample"],
+            "colsample_bytree":params["colsample_bytree"],
+            "max_bin":         params["max_bin"],
+        })
 
-        for param, value in final_params.items():
-            mlflow.log_param(param, value)
+        # Train model
+        callbacks = [
+            lgb.early_stopping(stopping_rounds=50, verbose=False),
+            lgb.log_evaluation(period=-1),
+        ]
 
-        print("\nTraining final tuned LightGBM model...")
-
-        final_model.fit(
-            X_train,
-            y_train,
-            categorical_feature=categorical_cols
+        model = lgb.train(
+            params,
+            lgb_train,
+            valid_sets=[lgb_valid],
+            callbacks=callbacks,
         )
 
-        predictions = final_model.predict(X_test)
-        predictions = np.maximum(predictions, 0)
+        # Predict and evaluate
+        preds = np.clip(model.predict(X_test), 0, None)
+        mae   = mean_absolute_error(y_test, preds)
+        rmse  = np.sqrt(np.mean((y_test - preds) ** 2))
+        wape  = np.sum(np.abs(y_test - preds)) / (np.sum(np.abs(y_test)) + 1e-8) * 100
+        improvement = ((baseline_mae - mae) / baseline_mae) * 100
 
-        mae = mean_absolute_error(y_test, predictions)
-        rmse = np.sqrt(mean_squared_error(y_test, predictions))
-        mape = calculate_mape(y_test, predictions)
-        wape = calculate_wape(y_test, predictions)
-        smape = calculate_smape(y_test, predictions)
-        rmsse = calculate_rmsse(y_test.values, predictions, y_train.values)
+        # Log all metrics to MLflow
+        mlflow.log_metrics({
+            "mae":                          mae,
+            "rmse":                         rmse,
+            "wape":                         wape,
+            "improvement_over_baseline":    improvement,
+            "best_iteration":               model.best_iteration,
+            "baseline_mae":                 baseline_mae,
+        })
 
-        improvement = ((BASELINE_MAE - mae) / BASELINE_MAE) * 100
-
-        print("\nOptuna Tuned LightGBM Metrics")
-        print("MAE:", round(mae, 4))
-        print("RMSE:", round(rmse, 4))
-        print("MAPE:", round(mape, 2))
-        print("WAPE:", round(wape, 2))
-        print("sMAPE:", round(smape, 2))
-        print("RMSSE:", round(rmsse, 4))
-
-        print("\nBaseline MAE:", BASELINE_MAE)
-        print("Tuned LightGBM MAE:", round(mae, 4))
-        print("Improvement over baseline:", round(improvement, 2), "%")
-
-        mlflow.log_metric("MAE", mae)
-        mlflow.log_metric("RMSE", rmse)
-        mlflow.log_metric("MAPE", mape)
-        mlflow.log_metric("WAPE", wape)
-        mlflow.log_metric("sMAPE", smape)
-        mlflow.log_metric("RMSSE", rmsse)
-        mlflow.log_metric("improvement_over_baseline_percent", improvement)
-
+        # Log feature importance as artifact
         importance_df = pd.DataFrame({
-            "feature": feature_cols,
-            "importance": final_model.feature_importances_
-        }).sort_values(by="importance", ascending=False)
+            "feature":    FEATURE_COLS,
+            "importance": model.feature_importance(importance_type="gain"),
+        }).sort_values("importance", ascending=False)
 
-        os.makedirs("reports", exist_ok=True)
+        importance_path = f"models/importance_trial_{trial.number}.csv"
+        importance_df.to_csv(importance_path, index=False)
+        mlflow.log_artifact(importance_path)
 
-        importance_output_path = "reports/lightgbm_optuna_feature_importance.csv"
-
-        importance_df.to_csv(importance_output_path, index=False)
-
-        mlflow.log_artifact(importance_output_path)
-
-        mlflow.lightgbm.log_model(
-            final_model,
-            "lightgbm_optuna_model"
+        print(
+            f"  Trial {trial.number:>3} | "
+            f"MAE: {mae:.4f} | "
+            f"RMSE: {rmse:.4f} | "
+            f"Improvement: {improvement:.2f}% | "
+            f"Trees: {model.best_iteration}"
         )
 
-        print("\nTuned model logged to MLflow successfully.")
+    return mae
 
+# =====================================================
+# RUN OPTUNA
+# =====================================================
 
-if __name__ == "__main__":
-    main()
+print(f"\nStarting Optuna — {N_TRIALS} trials")
+print(f"Press Ctrl+C at any time to stop safely.\n")
+print(f"{'Trial':>7} | {'MAE':>8} | {'RMSE':>8} | {'Improvement':>12} | {'Trees':>6}")
+print("-" * 60)
+
+study = optuna.create_study(
+    direction="minimize",
+    sampler=optuna.samplers.TPESampler(seed=42),
+    pruner=optuna.pruners.MedianPruner(),
+)
+
+try:
+    study.optimize(
+        objective,
+        n_trials=N_TRIALS,
+        show_progress_bar=False,   # cleaner output with our custom print
+    )
+except (KeyboardInterrupt, optuna.exceptions.OptunaError):
+    print("\nStopped. Using best trial found so far.")
+
+# =====================================================
+# BEST RESULTS
+# =====================================================
+
+best_params  = study.best_params
+best_mae     = study.best_value
+improvement  = ((baseline_mae - best_mae) / baseline_mae) * 100
+
+print(f"\n{'='*50}")
+print(f"BEST RESULT")
+print(f"{'='*50}")
+print(f"Best MAE:       {best_mae:.4f}")
+print(f"Baseline MAE:   {baseline_mae:.4f}")
+print(f"Improvement:    {improvement:.2f}%")
+print(f"Best trial:     #{study.best_trial.number}")
+
+# =====================================================
+# RETRAIN FINAL MODEL WITH BEST PARAMS
+# =====================================================
+
+print(f"\nRetraining final model with best parameters...")
+
+final_params = {
+    "objective":     "regression_l1",
+    "metric":        "mae",
+    "verbosity":     -1,
+    "boosting_type": "gbdt",
+    "n_jobs":        -1,
+    "random_state":  42,
+    **best_params,
+}
+
+# Log final model as its own MLflow run
+with mlflow.start_run(run_name="FINAL_MODEL"):
+
+    mlflow.log_params({**best_params, "trial": "final"})
+
+    lgb_all    = lgb.Dataset(df[FEATURE_COLS].fillna(0), label=df["sales"])
+    final_model = lgb.train(
+        final_params,
+        lgb_all,
+        num_boost_round=best_params.get("n_estimators", 500),
+    )
+
+    # Evaluate on test set
+    final_preds = np.clip(final_model.predict(X_test), 0, None)
+    final_mae   = mean_absolute_error(y_test, final_preds)
+    final_rmse  = np.sqrt(np.mean((y_test - final_preds) ** 2))
+    final_wape  = np.sum(np.abs(y_test - final_preds)) / (np.sum(np.abs(y_test)) + 1e-8) * 100
+    final_impr  = ((baseline_mae - final_mae) / baseline_mae) * 100
+
+    mlflow.log_metrics({
+        "mae":                       final_mae,
+        "rmse":                      final_rmse,
+        "wape":                      final_wape,
+        "improvement_over_baseline": final_impr,
+    })
+
+    # Log model to MLflow
+    mlflow.lightgbm.log_model(final_model, artifact_path="lightgbm_model")
+
+    # Feature importance
+    final_importance = pd.DataFrame({
+        "feature":    FEATURE_COLS,
+        "importance": final_model.feature_importance(importance_type="gain"),
+    }).sort_values("importance", ascending=False)
+
+    final_importance.to_csv("models/feature_importance_final.csv", index=False)
+    mlflow.log_artifact("models/feature_importance_final.csv")
+
+    # Test predictions
+    test_df = test_df.copy()
+    test_df["predicted_sales"] = final_preds
+    pred_path = "data/predictions/test_predictions_optuna.parquet"
+    test_df[["date", "item_id", "sales", "predicted_sales"]].to_parquet(pred_path, index=False)
+    mlflow.log_artifact(pred_path)
+
+    print(f"\n{'='*50}")
+    print(f"FINAL MODEL METRICS")
+    print(f"{'='*50}")
+    print(f"MAE:            {final_mae:.4f}")
+    print(f"RMSE:           {final_rmse:.4f}")
+    print(f"WAPE:           {final_wape:.2f}")
+    print(f"Improvement:    {final_impr:.2f}%")
+    print(f"\nTop 10 Features:")
+    print(final_importance.head(10).to_string(index=False))
+
+# =====================================================
+# SAVE FILES LOCALLY TOO
+# =====================================================
+
+joblib.dump(final_model, MODEL_PATH)
+with open(PARAMS_PATH, "w") as f:
+    json.dump(best_params, f, indent=2)
+
+print(f"\nModel saved:       {MODEL_PATH}")
+print(f"Best params saved: {PARAMS_PATH}")
+print(f"\nView all runs:     mlflow ui")
+print(f"Then open:         http://localhost:5000")
+print(f"\n{'='*50}")
+print(f"Previous MAE:   1.2750")
+print(f"New MAE:        {final_mae:.4f}")
+print(f"Total gain:     {((1.2750 - final_mae) / 1.2750 * 100):.2f}%")
+print(f"{'='*50}")

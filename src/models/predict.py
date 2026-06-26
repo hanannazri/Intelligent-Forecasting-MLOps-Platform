@@ -4,7 +4,7 @@ import mlflow.pyfunc
 
 
 FEATURE_DATA_PATH = Path("data/features/sales_ca_1_foods_features.parquet")
-MODEL_URI = "runs:/74832672f5b24721bb5c02aa6f51034c/lightgbm_model"
+MODEL_URI = "runs:/90e6d2c0ae0b452e85769b857fd27929/lightgbm_model"
 OUTPUT_PATH = Path("reports/forecast_predictions.csv")
 
 
