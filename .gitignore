@@ -225,4 +225,3 @@ data/features/*.parquet
 #mlflow and report
 mlruns/
 mlflow.db
-reports/
