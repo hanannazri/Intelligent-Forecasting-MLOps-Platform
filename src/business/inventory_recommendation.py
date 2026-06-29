@@ -1,7 +1,13 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
+from datetime import datetime
 
+report_path = Path("reports/inventory_recommendations.csv")
+
+last_updated = datetime.fromtimestamp(
+    report_path.stat().st_mtime
+).strftime("%d %B %Y")
 
 FORECAST_PATH = Path("reports/future_28_day_forecast.csv")
 OUTPUT_PATH = Path("reports/inventory_recommendations.csv")
@@ -59,13 +65,12 @@ def create_inventory_recommendations(df):
     )
 
     summary["needs_reorder"] = (
-        summary["current_inventory"] <= summary["reorder_point"]
+        summary["recommended_order_qty"] > 0
     ).astype(int)
 
     summary["stock_status"] = np.where(
-        summary["current_inventory"] <= summary["reorder_point"],
-        "Reorder Needed",
-        "Sufficient Stock",
+        summary["recommended_order_qty"] > 0,
+        "Reorder Needed", "No Reorder Needed",
     )
 
     summary["risk_level"] = pd.cut(
@@ -82,6 +87,32 @@ def save_recommendations(summary):
     summary.to_csv(OUTPUT_PATH, index=False)
     print(f"Inventory recommendations saved to: {OUTPUT_PATH}")
 
+def create_business_inventory_view(inventory_df):
+    business_df = inventory_df[
+        [
+            "item_id",
+            "store_id",
+            "cat_id",
+            "dept_id",
+            "total_28_day_forecast",
+            "current_inventory",
+            "recommended_order_qty",
+            "stock_status",
+            "risk_level",
+        ]
+    ].copy()
+
+    business_df = business_df.rename(
+        columns={
+            "total_28_day_forecast": "expected_28_day_demand"
+        }
+    )
+
+    business_df["expected_28_day_demand"] = (
+        business_df["expected_28_day_demand"].round().astype(int)
+    )
+
+    return business_df
 
 def main():
     df = load_forecast()
