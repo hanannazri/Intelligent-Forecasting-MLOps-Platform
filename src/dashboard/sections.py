@@ -14,9 +14,13 @@ from src.dashboard.components import (
 def show_header():
     st.markdown(
         """
-        <div class="main-title">Retail Demand Forecasting & Inventory Dashboard</div>
+        <div class="main-title">
+            Demand Forecasting & Inventory Intelligence Dashboard
+        </div>
+
         <div class="subtitle">
-           Operational dashboard for inventory planning and demand forecasting.
+            Operational dashboard for demand forecasting, inventory planning,
+            and intelligent replenishment decisions.
         </div>
         """,
         unsafe_allow_html=True,
