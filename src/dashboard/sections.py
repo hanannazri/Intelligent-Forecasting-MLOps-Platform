@@ -227,7 +227,21 @@ def show_inventory_planner(inventory_df):
         }
     )
 
-    st.write(f"Showing **{len(filtered_df)}** items")
+    csv = filtered_df.to_csv(index=False).encode("utf-8")
+
+    table_col, download_col = st.columns([3, 1])
+
+    with table_col:
+        st.write(f"Showing **{len(filtered_df)}** items")
+
+    with download_col:
+        st.download_button(
+            label="⬇ Download CSV",
+            data=csv,
+            file_name="filtered_inventory_recommendations.csv",
+            mime="text/csv",
+            use_container_width=True,
+        )
 
     if filtered_df.empty:
         st.success("✅ No products match the selected filters.")
@@ -237,15 +251,6 @@ def show_inventory_planner(inventory_df):
             use_container_width=True,
             hide_index=True,
         )
-
-    csv = filtered_df.to_csv(index=False).encode("utf-8")
-
-    st.download_button(
-        label="⬇ Download Filtered Inventory Recommendations",
-        data=csv,
-        file_name="filtered_inventory_recommendations.csv",
-        mime="text/csv",
-    )
 
     st.divider()
 
