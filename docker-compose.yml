@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    container_name: demand_forecast_api
+    command: python -m src.api.app
+    ports:
+      - "5000:5000"
+
+  dashboard:
+    build: .
+    container_name: demand_forecast_dashboard
+    command: streamlit run streamlit_app.py --server.address=0.0.0.0 --server.port=8501
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api

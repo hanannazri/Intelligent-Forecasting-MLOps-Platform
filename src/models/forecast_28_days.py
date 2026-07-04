@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
-import mlflow.pyfunc
+import joblib
 
 
 FEATURE_DATA_PATH = Path("data/features/sales_ca_1_foods_features.parquet")
 OUTPUT_PATH = Path("reports/future_28_day_forecast.csv")
 
-MODEL_URI = "runs:/90e6d2c0ae0b452e85769b857fd27929/lightgbm_model"
+MODEL_PATH = Path("models/lightgbm_model.pkl")
 
 FORECAST_DAYS = 28
 
@@ -49,10 +49,9 @@ def load_data():
 
 
 def load_model():
-    model = mlflow.pyfunc.load_model(MODEL_URI)
-    print("Model loaded from MLflow")
+    model = joblib.load(MODEL_PATH)
+    print(f"Model loaded from: {MODEL_PATH}")
     return model
-
 
 def create_future_forecast(df, model):
     last_date = df["date"].max()
