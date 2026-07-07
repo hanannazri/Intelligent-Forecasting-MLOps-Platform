@@ -217,13 +217,53 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-mlruns/
-mlflow.db
+# ===============================
+# Project-specific ignored files
+# ===============================
 
-models/
-
-reports/*.csv
-
+# Large dataset files
 data/raw/
 data/processed/
 data/features/
+
+# MLflow experiment tracking files
+mlruns/
+mlflow.db
+
+# Trained model artifacts
+models/
+
+# Generated CSV reports / dashboard input files
+reports/*.csv
+
+# Keep required dashboard CSVs
+!reports/inventory_recommendations.csv
+!reports/future_28_day_forecast.csv
+
+# Keep markdown reports
+!reports/*.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Streamlit cache
+.streamlit/
+!.streamlit/config.toml
+.streamlit/secrets.toml
+
+# Environment variables
+.env
+.envrc
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Temporary files
+tempCodeRunnerFile.py
+# Prediction outputs
+data/predictions/

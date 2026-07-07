@@ -1,0 +1,21 @@
+question,expected_intent
+Which products may run out next week?,get_stockout_products
+Show me products with stockout risk,get_stockout_products
+Which items are at risk of shortage?,get_stockout_products
+List the high risk products,get_stockout_products
+What products need attention due to low stock?,get_stockout_products
+Give reorder recommendation for FOODS_3_090,get_reorder_recommendation
+How much should I reorder for FOODS_3_090?,get_reorder_recommendation
+Should I restock FOODS_3_090?,get_reorder_recommendation
+How many units should I buy for FOODS_3_090?,get_reorder_recommendation
+Give replenishment advice for FOODS_3_090,get_reorder_recommendation
+Summarize inventory health,get_inventory_summary
+Give me an inventory overview,get_inventory_summary
+What is the current inventory status?,get_inventory_summary
+Show overall inventory summary,get_inventory_summary
+Give me a business summary of inventory risk,get_inventory_summary
+What is the weather in Mumbai?,fallback
+Forecast sales in Germany next year,fallback
+Tell me tomorrow's lottery numbers,fallback
+Suggest marketing ads for this product,fallback
+Who is the CEO of Amazon?,fallback

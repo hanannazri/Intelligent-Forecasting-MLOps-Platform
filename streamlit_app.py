@@ -1,5 +1,5 @@
 import streamlit as st
-
+from src.ai_assistant.assistant import answer_question
 from src.dashboard.styles import load_css
 from src.dashboard.data_loader import load_inventory_data, get_last_updated
 from src.dashboard.sections import (
@@ -10,6 +10,7 @@ from src.dashboard.sections import (
     show_inventory_planner,
     show_business_insights,
     show_footer,
+    render_ai_assistant_section,
 )
 
 st.set_page_config(
@@ -24,6 +25,7 @@ last_updated = get_last_updated()
 
 show_header()
 show_inventory_summary(inventory_df)
+render_ai_assistant_section()
 show_urgent_items(inventory_df)
 show_product_recommendation(inventory_df)
 show_inventory_planner(inventory_df)

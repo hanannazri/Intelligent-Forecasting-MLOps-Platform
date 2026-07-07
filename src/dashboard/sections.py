@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
-
+from src.ai_assistant.gemini_router import route_with_gemini
+from src.ai_assistant.assistant import answer_question
 from src.dashboard.config import DISPLAY_COLUMNS
 from src.dashboard.components import (
     section_title,
@@ -471,3 +472,53 @@ def show_footer(last_updated):
         """,
         unsafe_allow_html=True,
     )
+
+def render_ai_assistant_section():
+    st.markdown(
+    """
+    <div class="section-title">🤖 AI Inventory Assistant</div>
+    <div class="subtitle">
+        Interact with your inventory. Ask about stock levels,
+        reorder recommendations, demand forecasts, and inventory health.
+    </div>
+    """,
+    unsafe_allow_html=True,
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    if "ai_chat_history" not in st.session_state:
+        st.session_state.ai_chat_history = []
+
+    for message in st.session_state.ai_chat_history:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    with st.form("ai_assistant_form", clear_on_submit=True):
+        user_question = st.text_input(
+            "Ask a question",
+            placeholder="Example: Which products need restocking?"
+        )
+
+        submitted = st.form_submit_button("Ask Assistant")
+
+    if submitted:
+        if user_question.strip():
+            st.session_state.ai_chat_history.append(
+                {"role": "user", "content": user_question}
+            )
+
+            with st.chat_message("user"):
+                st.markdown(user_question)
+
+            with st.chat_message("assistant"):
+                with st.spinner("Analyzing inventory data..."):
+                    answer = answer_question(user_question)
+                    st.markdown(answer)
+
+            st.session_state.ai_chat_history.append(
+                {"role": "assistant", "content": answer}
+            )
+        else:
+            st.warning("Please enter a question.")
+    st.divider()    
