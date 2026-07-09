@@ -37,6 +37,20 @@
 
 </div>
 
+---
+
+<div align="center">
+
+## 🚀 Explore the Live Dashboard
+
+Experience the complete interactive dashboard, inventory recommendations,
+business insights, and AI-powered assistant in real time.
+
+<br>
+
+<a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
+<img
+
 ## **Project Overview**
 
 The **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform** is a production-oriented analytics application that helps retailers forecast product demand, optimize inventory decisions, and explore business insights through an interactive dashboard and AI-powered assistant.
