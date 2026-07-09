@@ -1,21 +1,25 @@
 #  **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform**
 
-Predict retail demand, optimize inventory decisions, and explore business insights through machine learning, interactive analytics, and an AI-powered assistant.
+*Predict retail demand, optimize inventory decisions, and explore business insights through machine learning, interactive analytics, and an AI-powered assistant.*
 
 ---
 
-**Live Demo**:  https://intelligent-forecasting-mlops-platform.streamlit.app/
+### 👉 **Live Demo**
 
-### Dashboard Preview
+**Interactive Streamlit Dashboard**
+
+https://intelligent-forecasting-mlops-platform.streamlit.app/
+
+### 📸 **Dashboard Preview**
 
 <p align="center">
-  <img src="assets/dashboard-overview.png" alt="Dashboard Overview" width="49%" />
-  <img src="assets/product-recommend.png" alt="Product Recommendation" width="49%" />
+  <img src="assets/dashboard-overview.png" alt="Dashboard Overview" width="47%" />
+  <img src="assets/product-recommend.png" alt="Product Recommendation" width="47%" />
 </p>
 
 <p align="center">
-  <img src="assets/inventory.png" alt="Inventory Planner" width="49%" />
-  <img src="assets/insights1.png" alt="Business Insights" width="49%" />
+  <img src="assets/inventory.png" alt="Inventory Planner" width="47%" />
+  <img src="assets/insights1.png" alt="Business Insights" width="47%" />
 </p>
 
 <p align="center">
@@ -24,30 +28,26 @@ Predict retail demand, optimize inventory decisions, and explore business insigh
 
 ---
 
+## **Project Overview**
 
+The **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform** is a production-oriented analytics application that helps retailers forecast product demand, optimize inventory decisions, and explore business insights through an interactive dashboard and AI-powered assistant.
 
-## 📌 Project Overview
-
-**Intelligent Retail Demand Forecasting & Inventory Intelligence Platform** is an end-to-end Machine Learning and MLOps project designed to help retail businesses make smarter inventory decisions through demand forecasting and business intelligence.
-
-The platform predicts product demand for the next **28 days**, converts those predictions into actionable inventory recommendations, exposes forecasting capabilities through REST APIs, and provides an interactive Streamlit dashboard with an AI-powered assistant for business users.
-
-Unlike a standalone forecasting notebook, this project demonstrates how machine learning models can be integrated into a production-oriented system that combines data engineering, model training, experiment tracking, deployment, business visualization, and natural-language interaction.
+Built on the M5 Forecasting dataset, the platform combines data engineering, feature engineering, machine learning, inventory intelligence, experiment tracking, REST APIs, containerized deployment, and interactive analytics into a single business-focused solution.
 
 ---
 
-# 🎯 Business Problem
+## **Business Problem**
 
 Retail businesses continuously face two expensive inventory challenges:
 
-### 📉 Understocking
+### **Understocking**
 
 - Products become unavailable
 - Customers leave without purchasing
 - Sales opportunities are lost
 - Customer satisfaction decreases
 
-### 📈 Overstocking
+### 📈 **Overstocking**
 
 - Excess capital is locked in inventory
 - Warehousing costs increase
@@ -60,87 +60,23 @@ This project addresses that problem by forecasting future product demand and tra
 
 ---
 
-# 💡 Project Highlights
+##  **Key Features**
 
-✔ End-to-End Retail Demand Forecasting Pipeline
+| Feature | Description |
+|----------|-------------|
+| 📈 **28-Day Demand Forecasting** | Predicts future product demand using a LightGBM forecasting model trained on historical sales, pricing, and calendar features. |
+| 📦 **Inventory Intelligence** | Converts forecasts into reorder quantities, reorder points, target stock levels, and demand risk categories. |
+| 📊 **Interactive Dashboard** | Streamlit dashboard for exploring KPIs, inventory recommendations, business insights, and operational analytics. |
+| 🤖 **AI Business Assistant** | Supports natural-language inventory queries using Gemini with deterministic rule-based routing for reliable responses. |
+| 🌐 **REST API** | Flask API exposes forecasting and inventory endpoints for integration with external applications. |
+| 📈 **MLflow Tracking** | Tracks experiments, model parameters, evaluation metrics, and trained model artifacts. |
+| 🐳 **Dockerized Deployment** | Containerized deployment using Docker and Docker Compose for reproducible execution. |
+| ⚙️ **Continuous Integration** | GitHub Actions automatically validates project builds and dependencies on every push. |
 
-✔ Intelligent Inventory Recommendation Engine
-
-✔ Interactive Streamlit Business Dashboard
-
-✔ Gemini-Powered AI Assistant with Rule-Based Fallback
-
-✔ REST API using Flask
-
-✔ MLflow Experiment Tracking
-
-✔ Dockerized Multi-Service Deployment
-
-✔ GitHub Actions Continuous Integration
-
-✔ Production-Oriented Project Architecture
 
 ---
 
-# 📊 Dashboard Preview
-
-> **Executive Dashboard**
-
-*(Insert Screenshot Here)*
-
----
-
-> **Inventory Recommendation Dashboard**
-
-*(Insert Screenshot Here)*
-
----
-
-> **AI Assistant**
-
-*(Insert Screenshot Here)*
-
----
-
-# ⭐ Why This Project Stands Out
-
-This repository goes beyond building a forecasting model.
-
-It demonstrates the complete lifecycle of an end-to-end machine learning system, covering:
-
-- Data Engineering
-- Feature Engineering
-- Time-Series Forecasting
-- Business Rule Engine
-- Inventory Intelligence
-- Experiment Tracking
-- API Development
-- Interactive Dashboard
-- AI Integration
-- Containerization
-- Continuous Integration
-
-The result is a production-oriented portfolio project that combines Machine Learning, MLOps, Software Engineering, and AI-assisted business decision support into a single platform.
-
----
-
-## Project Results
-
-| Metric                    |                  Result |
-| ------------------------- | ----------------------: |
-| Forecast Horizon          |                 28 days |
-| Products Forecasted       |                   1,437 |
-| Dataset Size              |      ~2.75 million rows |
-| Model Used                |                LightGBM |
-| MAE                       |                   1.204 |
-| RMSSE                     |                   0.667 |
-| Improvement over Baseline |                  12.96% |
-| AI Assistant Evaluation   | 20 / 20 correct intents |
-| AI Assistant Accuracy     |                    100% |
-
----
-
-## Tech Stack
+## **Tech Stack**
 
 | Layer               | Tools                                         |
 | ------------------- | --------------------------------------------- |
@@ -157,7 +93,7 @@ The result is a production-oriented portfolio project that combines Machine Lear
 
 ---
 
-# 🏛️ Project Architecture
+## 🏛️ **Project Architecture**
 
 The platform is designed as a modular, production-oriented machine learning system where each component has a single responsibility. This separation improves maintainability, scalability, and deployment flexibility.
 
@@ -193,7 +129,13 @@ J --> M
 
 ---
 
-# 🗂️ Repository Structure
+
+````markdown
+<details>
+
+<summary><b>📂 Repository Structure</b></summary>
+
+<br>
 
 ```text
 Intelligent-Forecasting-MLOps-Platform/
@@ -226,13 +168,14 @@ Intelligent-Forecasting-MLOps-Platform/
 ├── docker-compose.yml
 ├── requirements.txt
 └── streamlit_app.py
-```
+
+````
 
 The repository follows a modular architecture where data processing, machine learning, APIs, dashboard components, and AI services are organized into independent modules.
 
 ---
 
-# 🔄 End-to-End Machine Learning Pipeline
+## **End-to-End Machine Learning Pipeline**
 
 The project follows a complete machine learning workflow from raw retail data to business decision support.
 
@@ -270,117 +213,84 @@ J --> L[AI Assistant]
 
 ---
 
-# 📦 Data Engineering Pipeline
+## **Data Engineering Pipeline**
 
-The project begins by transforming multiple raw retail datasets into a unified forecasting dataset suitable for machine learning.
+The forecasting pipeline begins by integrating historical sales, calendar events, and pricing data into a unified feature dataset.
 
-### Data Sources
+The pipeline performs:
 
-- Historical Sales
-- Calendar & Events
-- Product Pricing
+- Data ingestion
+- Data validation
+- Data transformation
+- Feature dataset generation
 
-### Pipeline Stages
-
-- Data Ingestion
-- Data Validation
-- Data Transformation
-- Feature Dataset Generation
-
-The transformed dataset serves as the single source of truth for forecasting, inventory intelligence, dashboard reporting, and AI-assisted querying.
+The resulting dataset serves as the foundation for forecasting, inventory recommendations, dashboard reporting, and AI-assisted business queries.
 
 ---
 
-# ⚙️ Feature Engineering
+## ⚙️ **Feature Engineering**
 
-The forecasting model relies on multiple categories of engineered features that capture historical demand behavior, seasonality, pricing effects, and product-level characteristics.
+The forecasting model uses engineered features to capture historical demand patterns, seasonality, pricing behavior, and product-level characteristics.
 
-### Historical Demand
+Feature categories include:
 
-- Lag Features
-- Rolling Statistics
-- Demand Trends
+- Historical demand features (lags and rolling statistics)
+- Calendar and seasonal features
+- Pricing and price change features
+- Product, department, and category aggregations
 
-### Calendar Intelligence
-
-- Weekday
-- Month
-- Quarter
-- Weekend Indicators
-- Event Information
-
-### Pricing Features
-
-- Historical Prices
-- Price Changes
-- Price Change Percentage
-- Price Lags
-
-### Product-Level Features
-
-- Product Statistics
-- Department Aggregations
-- Category Aggregations
-- Demand Sparsity Indicators
-
-These engineered features enable the forecasting model to capture both short-term and long-term demand patterns.
+These features help the model learn both short-term demand fluctuations and long-term purchasing trends.
 
 ---
 
-# 🤖 Forecasting Engine
+## **Forecasting & Inventory Intelligence**
 
-The platform predicts future retail demand using supervised machine learning.
+The platform forecasts retail demand using a supervised machine learning model and transforms those predictions into actionable inventory recommendations.
 
-### Models Evaluated
+### **Forecasting**
+
+The final production model was selected after comparing multiple forecasting approaches against a baseline model.
 
 | Model | Purpose |
-|---------|----------|
-| Baseline Forecast | Performance Benchmark |
-| XGBoost | Model Comparison |
-| LightGBM | Final Production Model |
+|--------|---------|
+| Baseline | Performance benchmark |
+| XGBoost | Model comparison |
+| **LightGBM** | Final production model |
 
-The final model was selected based on forecasting accuracy and generalization performance against a baseline forecasting approach.
+### **Inventory Intelligence**
 
----
+Forecasts are converted into business-ready recommendations, including:
 
-# 📦 Inventory Intelligence Engine
+- Recommended order quantity
+- Reorder point
+- Target stock level
+- Demand risk category
 
-Forecasts alone do not directly support business decisions.
-
-The platform converts predicted demand into inventory recommendations that help determine:
-
-- Which products require replenishment
-- Recommended order quantities
-- Target inventory levels
-- Reorder points
-- Demand risk categories
-
-This additional business layer transforms machine learning predictions into operational decisions that inventory managers can use.
+This business layer bridges the gap between machine learning predictions and operational inventory planning.
 
 ---
+## **MLflow Experiment Tracking**
 
-# 🤖 AI Business Assistant
+MLflow is used to track model training experiments, including parameters, evaluation metrics, and model artifacts. This ensures that experiments remain reproducible and makes it easier to compare different forecasting models throughout development.
+---
+
+## **AI Business Assistant**
 
 The platform includes an AI-powered assistant that enables users to interact with verified inventory data using natural language.
 
 Rather than generating inventory values directly, the assistant retrieves information through approved backend functions before generating a business-friendly response.
 
-### Supported Business Questions
+### **Supported Business Questions**
 
 ✔ Inventory Summary
-
 ✔ Products Requiring Reorder
-
 ✔ High-Risk Inventory
-
 ✔ Product-Level Recommendations
 
 Example:
 
 > Which products require immediate replenishment?
-
 > Show the inventory summary.
-
 > What is the reorder recommendation for this product?
 
 ---
@@ -407,11 +317,7 @@ E --> F[Verified Business Result]
 F --> G[Natural Language Response]
 ```
 
-### Why Hybrid Routing?
-
-High-confidence inventory queries are processed locally through deterministic routing.
-
-Gemini is used only when additional language understanding is required.
+> High-confidence inventory queries are processed locally through deterministic routing. Gemini is used only when additional language understanding is required.
 
 This approach provides:
 
@@ -423,32 +329,21 @@ This approach provides:
 
 ---
 
-# 🌐 REST API Layer
+## **REST API Layer**
 
-The forecasting platform exposes model outputs through a lightweight Flask REST API.
+## 🌐 REST API
 
-The API demonstrates how forecasting services can be integrated with external applications such as:
+The platform exposes forecasting and inventory capabilities through a lightweight Flask REST API, enabling integration with external applications and business workflows.
 
-- ERP Systems
-- Inventory Management Software
-- Mobile Applications
-- Business Dashboards
-
-Example endpoints include:
-
-```text
-GET /health
-
-GET /forecast/28days
-
-GET /inventory/recommendations
-```
-
-Separating model serving from the dashboard allows the forecasting engine to be reused across multiple client applications.
+| Endpoint | Description |
+|----------|-------------|
+| `GET /health` | Service health check |
+| `GET /forecast/28days` | Retrieve 28-day demand forecasts |
+| `GET /inventory/recommendations` | Retrieve inventory recommendations |
 
 ---
 
-# 📊 Streamlit Dashboard
+## **Streamlit Dashboard**
 
 The Streamlit application serves as the primary business interface for interacting with forecasting results.
 
@@ -469,235 +364,7 @@ The dashboard is intended for operational users who require business insights ra
 
 ---
 
-# 🚀 Getting Started
-
-## Live Application
-
-The easiest way to explore this project is through the deployed Streamlit application.
-
-### 🌐 Streamlit Dashboard
-
-**Live Demo:**  
-YOUR_STREAMLIT_LINK
-
-No installation is required to explore the dashboard.
-
----
-
-# 🔍 How to Review This Project
-
-There are several ways to evaluate the project depending on your interests.
-
-## Option 1 — Explore the Live Dashboard (Recommended)
-
-Open the deployed Streamlit application to:
-
-- View executive inventory KPIs
-- Explore inventory recommendations
-- Filter products by department
-- Analyze demand risk levels
-- Interact with the AI Assistant
-
-This provides the quickest overview of the project's business functionality.
-
----
-
-## Option 2 — Review the Source Code
-
-The repository is organized into modular components:
-
-| Module | Purpose |
-|---------|----------|
-| `src/data` | Data ingestion, validation, transformation |
-| `src/features` | Feature engineering |
-| `src/models` | Model training and forecasting |
-| `src/business` | Inventory recommendation engine |
-| `src/api` | Flask REST API |
-| `src/dashboard` | Streamlit dashboard |
-| `src/ai_assistant` | AI Assistant |
-
----
-
-## Option 3 — Run the Project Locally
-
-Clone the repository:
-
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/Intelligent-Forecasting-MLOps-Platform.git
-
-cd Intelligent-Forecasting-MLOps-Platform
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv venv
-```
-
-Activate the environment:
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
-Install project dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# ▶ Running the Streamlit Dashboard
-
-Launch the application:
-
-```bash
-streamlit run streamlit_app.py
-```
-
-The dashboard will be available at:
-
-```text
-http://localhost:8501
-```
-
----
-
-# ⚙ Environment Variables
-
-The AI Assistant uses the Gemini API.
-
-Create a `.env` file in the project root.
-
-Example:
-
-```text
-GEMINI_API_KEY=YOUR_API_KEY
-```
-
-For Streamlit Community Cloud deployment, configure the key inside **App Settings → Secrets**.
-
-```toml
-GEMINI_API_KEY="YOUR_API_KEY"
-```
-
-> **Important:** Never commit API keys or `.env` files to version control.
-
----
-
-# 🐳 Running with Docker
-
-The project includes Docker support for reproducible deployment.
-
-Build and start all services:
-
-```bash
-docker compose up --build
-```
-
-Docker Compose starts:
-
-| Service | Port |
-|----------|------|
-| Streamlit Dashboard | 8501 |
-| Flask API | 5000 |
-
-After deployment:
-
-Dashboard:
-
-```text
-http://localhost:8501
-```
-
-API:
-
-```text
-http://localhost:5000
-```
-
-Stop all services:
-
-```bash
-docker compose down
-```
-
----
-
-# 🌐 Flask REST API
-
-The Flask API exposes forecasting and inventory data for external applications.
-
-### Health Check
-
-```http
-GET /health
-```
-
-### Forecast Endpoint
-
-```http
-GET /forecast/28days
-```
-
-Returns the generated 28-day demand forecast.
-
----
-
-### Inventory Recommendation Endpoint
-
-```http
-GET /inventory/recommendations
-```
-
-Returns inventory recommendations generated from forecast outputs.
-
----
-
-## Example API Request
-
-```bash
-curl http://localhost:5000/inventory/recommendations
-```
-
----
-
-# 📈 MLflow Experiment Tracking
-
-The project uses MLflow to track machine learning experiments.
-
-Tracked information includes:
-
-- Parameters
-- Metrics
-- Model artifacts
-- Feature importance
-- Trained models
-
-Launch MLflow:
-
-```bash
-mlflow ui --backend-store-uri sqlite:///mlflow.db
-```
-
-Open:
-
-```text
-http://localhost:5000
-```
-
----
-
-# 🔄 Continuous Integration
+## **Continuous Integration**
 
 GitHub Actions automatically validates the project whenever new code is pushed.
 
@@ -712,7 +379,9 @@ This helps ensure that the project remains reproducible and deployable across en
 
 ---
 
-# 📦 Docker Deployment Overview
+## **Docker Deployment **
+
+The project is fully containerized using Docker and Docker Compose, providing a reproducible environment for both the Streamlit dashboard and Flask API.
 
 ```mermaid
 flowchart LR
@@ -732,44 +401,26 @@ D --> F[Business User]
 E --> F
 ```
 
----
+Start all services with:
 
-# 🛠 Deployment Summary
+```bash
+docker compose up --build
+```
 
-| Component | Technology |
-|-----------|------------|
-| Dashboard | Streamlit Community Cloud |
-| API | Flask |
-| Containerization | Docker |
-| Experiment Tracking | MLflow |
-| Version Control | GitHub |
-| CI Pipeline | GitHub Actions |
+| Service | Default Port |
+|----------|-------------:|
+| Streamlit Dashboard | 8501 |
+| Flask REST API | 5000 |
 
 ---
 
-# 📸 Suggested Reviewer Workflow
-
-For the best experience, reviewers are encouraged to explore the project in the following order:
-
-1. Open the **Live Streamlit Dashboard**
-2. Review the project overview and architecture
-3. Browse the repository structure
-4. Inspect the forecasting and inventory modules
-5. Review the AI Assistant implementation
-6. Explore the Docker configuration
-7. Examine the GitHub Actions workflow
-
-This sequence provides a complete understanding of both the business capabilities and the engineering implementation.
-
----
-
-# 📊 Model Performance
+## 📊 **Model Performance**
 
 The forecasting pipeline was evaluated using a time-based validation strategy, where the most recent observations were held out as the test period.
 
 The final production model was selected after comparing multiple forecasting approaches against a baseline model.
 
-## Final Evaluation
+### **Final Evaluation**
 
 | Metric | Result |
 |----------|--------|
@@ -783,7 +434,7 @@ The trained model demonstrated consistent forecasting performance while maintain
 
 ---
 
-# 💼 Business Impact
+## **Business Impact**
 
 The objective of this project extends beyond producing accurate forecasts.
 
@@ -801,64 +452,41 @@ By combining forecasting with inventory intelligence, the platform bridges the g
 
 ---
 
-# 🧠 Key Engineering Decisions
+## **Project Results**
 
-Several design decisions were made to improve scalability, maintainability, and usability.
-
-### Modular Project Structure
-
-Each component of the system is separated into dedicated modules, allowing data processing, forecasting, APIs, dashboard components, and AI services to evolve independently.
-
----
-
-### Batch Forecast Generation
-
-Forecasts are generated before launching the dashboard rather than during user interaction.
-
-This significantly improves dashboard responsiveness while ensuring consistent outputs across sessions.
+| Metric                    |                  Result |
+| ------------------------- | ----------------------: |
+| Forecast Horizon          |                 28 days |
+| Products Forecasted       |                   1,437 |
+| Dataset Size              |      ~2.75 million rows |
+| Model Used                |                LightGBM |
+| MAE                       |                   1.204 |
+| RMSSE                     |                   0.667 |
+| Improvement over Baseline |                  12.96% |
+| AI Assistant Evaluation   | 20 / 20 correct intents |
+| AI Assistant Accuracy     |                    100% |
 
 ---
 
-### Business Rule Layer
+## **Engineering Highlights**
 
-Machine learning predictions are converted into business-friendly inventory recommendations using an inventory intelligence engine.
+The platform was designed with practical software engineering principles to improve performance, maintainability, and usability.
 
-This additional layer transforms numerical forecasts into operational decisions.
+- **Modular architecture** – The project is organized into independent modules for data processing, forecasting, business logic, APIs, the dashboard, and the AI Assistant, making the codebase easier to maintain and extend.
 
----
+- **Precomputed forecasting pipeline** – Forecasts are generated before the dashboard loads, reducing response times and providing a smoother user experience.
 
-### Hybrid AI Assistant
+- **Business-focused recommendations** – Instead of displaying raw predictions, the system converts forecasts into reorder quantities, reorder points, and inventory recommendations that are directly useful for decision-making.
 
-The AI assistant combines deterministic routing with Gemini-powered language understanding.
+- **Hybrid AI Assistant** – High-confidence inventory questions are handled through deterministic routing, while Gemini is used for natural language understanding, balancing reliability with flexibility.
 
-This approach provides:
+- **Reproducible experimentation** – MLflow tracks parameters, metrics, and model artifacts, making experiments easy to reproduce and compare.
 
-- Faster responses
-- Reduced API usage
-- Lower operating cost
-- Reliable business outputs
-- Graceful fallback handling
+- **Containerized deployment** – Docker and Docker Compose ensure that the dashboard and API can be deployed consistently across different environments.
 
 ---
 
-### Experiment Tracking
-
-MLflow is used to ensure that model training remains reproducible by tracking:
-
-- Parameters
-- Metrics
-- Artifacts
-- Trained models
-
----
-
-### Containerized Deployment
-
-Docker and Docker Compose provide a consistent execution environment, simplifying deployment across development and production systems.
-
----
-
-# 🚀 Future Improvements
+## 🚀 **Future Improvements**
 
 Potential enhancements include:
 
@@ -873,85 +501,19 @@ Potential enhancements include:
 - Expand the AI Assistant with analytical capabilities and additional business workflows
 
 ---
+### **Acknowledgements**
 
-# 🎓 Skills Demonstrated
+This project uses the **M5 Forecasting** dataset, one of the most widely used public benchmarks for retail demand forecasting research.
 
-This project demonstrates practical experience across the end-to-end machine learning lifecycle.
-
-### Data Engineering
-
-- Data ingestion
-- Data validation
-- Data transformation
-- Feature generation
-
-### Machine Learning
-
-- Time-series forecasting
-- Feature engineering
-- Model evaluation
-- Hyperparameter optimization
-
-### MLOps
-
-- MLflow experiment tracking
-- Docker containerization
-- GitHub Actions CI
-- Environment management
-
-### Software Engineering
-
-- Modular Python architecture
-- REST API development
-- Interactive dashboard development
-- Configuration management
-
-### Artificial Intelligence
-
-- Gemini API integration
-- Tool-based AI architecture
-- Rule-based routing
-- Natural-language business interaction
+Special thanks to the open-source community and the developers of Python, LightGBM, Streamlit, Flask, MLflow, Docker, and GitHub Actions for making projects like this possible.
 
 ---
 
-# 🙏 Acknowledgements
+### 📬 **Connect With Me**
 
-This project was developed using the **M5 Forecasting** dataset, a widely used benchmark for retail demand forecasting research.
+**Hanan**
 
-Open-source technologies including Python, LightGBM, Streamlit, Flask, MLflow, Docker, and GitHub Actions made it possible to build an end-to-end machine learning platform focused on practical business applications.
+Aspiring Data Scientist & ML Engineer
 
----
-
-# 📬 Contact
-
-**Nazri Hanan**
-
-Aspiring Data Scientist | Machine Learning Engineer
-
-- LinkedIn: *(Add your LinkedIn profile)*
-- GitHub: https://github.com/YOUR_USERNAME
-
----
-
-# ⭐ If You Found This Repository Useful
-
-If you found this project interesting, consider giving the repository a ⭐.
-
-It helps others discover the project and supports continued development.
-
----
-
-## 📄 License
-
-This project is released under the **MIT License**.
-
-Feel free to use, learn from, and adapt the code in accordance with the license terms.
-
----
-
-<p align="center">
-
-**Built with Python • Machine Learning • MLOps • Streamlit • Docker • MLflow • Gemini AI**
-
-</p>
+- 💼 LinkedIn: https://linkedin.com/in/hanan-nazri
+- 💻 GitHub: https://github.com/hanannazri
