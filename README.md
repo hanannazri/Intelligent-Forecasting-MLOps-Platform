@@ -208,8 +208,9 @@ Intelligent-Forecasting-MLOps-Platform/
 ├── docker-compose.yml
 ├── requirements.txt
 └── streamlit_app.py
-</details>
+
 ```
+</details>
 
 ---
 
