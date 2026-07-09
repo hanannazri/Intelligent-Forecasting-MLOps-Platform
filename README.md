@@ -94,7 +94,7 @@ This project addresses that problem by forecasting future product demand and tra
 The platform is designed as a modular, production-oriented machine learning system where each component has a single responsibility. This separation improves maintainability, scalability, and deployment flexibility.
 
 ```mermaid
-flowchart LR
+flowchart TD
 
 A[Raw M5 Dataset] --> B[Data Engineering]
 
