@@ -49,7 +49,7 @@ business insights, and AI-powered assistant in real time.
 <br>
 
 <a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
-<img
+<img>
 
 ## **Project Overview**
 
