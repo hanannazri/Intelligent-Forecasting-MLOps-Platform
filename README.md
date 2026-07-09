@@ -130,39 +130,29 @@ The platform is designed as a modular, production-oriented machine learning syst
 ```mermaid
 flowchart TD
 
-A[Raw M5 Retail Dataset] --> B[Data Processing]
-B --> C[Feature Engineering]
-C --> D[LightGBM Forecasting Model]
+A[Raw M5 Dataset]
+--> B[Data Processing]
+--> C[Feature Engineering]
+--> D[LightGBM Model]
+--> E[28-Day Forecast]
+--> F[Inventory Recommendation Engine]
+--> G[Business Reports]
 
-D --> E[MLflow Tracking]
-D --> F[28-Day Demand Forecast]
+G --> H[Streamlit Dashboard]
+G --> I[AI Assistant]
 
-F --> G[Inventory Recommendation Engine]
-G --> H[Business Reports]
+I --> J[Rule-Based Router + Gemini API]
 
-H --> I[Streamlit Dashboard]
-H --> J[Flask REST API]
-H --> K[AI Business Assistant]
+D --> K[MLflow Tracking]
 
-K --> L[Rule-Based Router]
-L --> M[Approved Backend Functions]
-L --> N[Gemini API Fallback]
+L[Flask REST API]
+--> M[External Applications]
 
-M --> O[Verified Inventory Data]
-N --> O
-O --> K
+N[Docker]
 
-I --> P[Business Users]
-K --> P
-J --> Q[External Applications]
-
-R[Docker & Docker Compose] --> I
-R --> J
-
-S[GitHub Actions CI] --> T[Validate Build & Dependencies]
-T --> R
+O[GitHub Actions]
+--> N
 ```
-
 ---
 
 
