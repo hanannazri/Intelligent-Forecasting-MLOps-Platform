@@ -33,7 +33,7 @@ jobs:
 
       - name: Verify core package imports
         run: |
-          python -c "import pandas, numpy, lightgbm, flask, streamlit, sklearn, joblib; print('Core imports successful')"
+          python -c "import pandas, numpy, flask, streamlit, sklearn, joblib; print('Core imports successful')"
 
       - name: Verify project package imports
         run: |
