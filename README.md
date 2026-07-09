@@ -4,11 +4,7 @@ Predict retail demand, optimize inventory decisions, and explore business insigh
 
 ---
 
-## Live Demo
-
-### 🌐 Streamlit Dashboard
-
-**Explore the deployed application here**:  https://intelligent-forecasting-mlops-platform.streamlit.app/
+**Live Demo**:  https://intelligent-forecasting-mlops-platform.streamlit.app/
 
 ### Dashboard Preview
 
