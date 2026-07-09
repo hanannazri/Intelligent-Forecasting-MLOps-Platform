@@ -1,29 +1,36 @@
-# 🛒 Intelligent Retail Demand Forecasting & Inventory Intelligence Platform
+#  **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform**
+
+Predict retail demand, optimize inventory decisions, and explore business insights through machine learning, interactive analytics, and an AI-powered assistant.
+
+---
+
+## Live Demo
+
+### 🌐 Streamlit Dashboard
+
+**Explore the deployed application here**:  https://intelligent-forecasting-mlops-platform.streamlit.app/
+
+### Dashboard Preview
+
+<h2 align="center">📸 Dashboard Preview</h2>
 
 <p align="center">
+  <img src="assets/dashboard-overview.png" alt="Dashboard Overview" width="49%" />
+  <img src="assets/product-recommend.png" alt="Product Recommendation" width="49%" />
+</p>
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![LightGBM](https://img.shields.io/badge/LightGBM-Forecasting-4CAF50?style=for-the-badge)
-![MLflow](https://img.shields.io/badge/MLflow-MLOps-0194E2?style=for-the-badge)
-![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit)
-![Flask](https://img.shields.io/badge/Flask-API-black?style=for-the-badge&logo=flask)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI/CD-2088FF?style=for-the-badge&logo=githubactions)
-![Gemini AI](https://img.shields.io/badge/Gemini-AI_Assistant-8E75FF?style=for-the-badge)
+<p align="center">
+  <img src="assets/inventory.png" alt="Inventory Planner" width="49%" />
+  <img src="assets/insights1.png" alt="Business Insights" width="49%" />
+</p>
 
+<p align="center">
+  <img src="assets/ai-assistance.png" alt="AI Inventory Assistant" width="75%" />
 </p>
 
 ---
 
-## 🚀 Live Demo
 
-### 🌐 Streamlit Dashboard
-
-> **Explore the deployed application here**
-
-**🔗 Live Demo:**  https://intelligent-forecasting-mlops-platform.streamlit.app/
-
----
 
 ## 📌 Project Overview
 
