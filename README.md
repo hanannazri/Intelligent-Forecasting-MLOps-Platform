@@ -142,7 +142,7 @@ F --> G[Inventory Recommendation Engine]
 G --> H[Business Reports]
 ```
 
-### System Deployment & User Interaction 
+### Application & Deployment Workflow
 
 This workflow illustrates how business reports are consumed by the dashboard and AI assistant, while Docker containerizes the application and GitHub Actions validates every code push through the CI pipeline.
 
