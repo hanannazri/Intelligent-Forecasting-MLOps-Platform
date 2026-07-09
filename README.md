@@ -89,18 +89,19 @@ This project addresses that problem by forecasting future product demand and tra
 
 ---
 
-##  **Key Features**
+##  **Platform Features**
 
-| Feature | Description |
-|----------|-------------|
-| 📈 **28-Day Demand Forecasting** | Predicts future product demand using a LightGBM forecasting model trained on historical sales, pricing, and calendar features. |
-| 📦 **Inventory Intelligence** | Converts forecasts into reorder quantities, reorder points, target stock levels, and demand risk categories. |
-| 📊 **Interactive Dashboard** | Streamlit dashboard for exploring KPIs, inventory recommendations, business insights, and operational analytics. |
-| 🤖 **AI Business Assistant** | Supports natural-language inventory queries using Gemini with deterministic rule-based routing for reliable responses. |
-| 🌐 **REST API** | Flask API exposes forecasting and inventory endpoints for integration with external applications. |
-| 📈 **MLflow Tracking** | Tracks experiments, model parameters, evaluation metrics, and trained model artifacts. |
-| 🐳 **Dockerized Deployment** | Containerized deployment using Docker and Docker Compose for reproducible execution. |
-| ⚙️ **Continuous Integration** | GitHub Actions automatically validates project builds and dependencies on every push. |
+| Feature                   | Purpose                                         |
+| ------------------------- | ----------------------------------------------- |
+| 📈 Demand Forecasting     | Predicts future retail demand                   |
+| 📦 Inventory Intelligence | Generates reorder recommendations               |
+| 📊 Interactive Dashboard  | Visualizes KPIs and inventory insights          |
+| 🤖 AI Assistant           | Answers inventory questions in natural language |
+| 🌐 REST API               | Serves forecasting and inventory endpoints      |
+| 📈 MLflow                 | Tracks experiments and model versions           |
+| 🐳 Docker                 | Containerized deployment                        |
+| 🔄 GitHub Actions         | Automated CI pipeline                           |
+
 
 
 ---
