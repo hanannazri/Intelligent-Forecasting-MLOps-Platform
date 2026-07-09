@@ -14,11 +14,11 @@
 <img src="https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white"/>
 
 </p>
-### 🚀 Live Interactive Streamlit Dashboard Demo
+
+### Live Interactive Streamlit Dashboard Demo
 
 **🔗 [Launch Dashboard](https://intelligent-forecasting-mlops-platform.streamlit.app/)**
 
-**Live Interactive Streamlit Dashboard Demo: [Launch Dashboard](https://intelligent-forecasting-mlops-platform.streamlit.app/)**
 ---
 
 ## **Dashboard Preview**
