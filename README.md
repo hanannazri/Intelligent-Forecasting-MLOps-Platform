@@ -209,6 +209,7 @@ The repository follows a modular architecture where data processing, machine lea
 
 The project follows a complete machine learning workflow from raw retail data to business decision support.
 
+```mermaid
 %%{init: {
   "flowchart": {
     "nodeSpacing": 90,
@@ -216,7 +217,6 @@ The project follows a complete machine learning workflow from raw retail data to
   }
 }}%%
 
-```mermaid
 flowchart LR
 
 A[Raw Sales Data]
@@ -335,6 +335,13 @@ To ensure reliable business responses, the assistant retrieves verified data thr
 ### **Assistant Architecture**
 
 ```mermaid
+%%{init: {
+  "flowchart": {
+    "nodeSpacing": 90,
+    "rankSpacing": 100
+  }
+}}%%
+
 flowchart LR
 
 A[Business Question]
@@ -419,6 +426,13 @@ This helps ensure that the project remains reproducible and deployable across en
 The project is fully containerized using Docker and Docker Compose, providing a reproducible environment for both the Streamlit dashboard and Flask API.
 
 ```mermaid
+%%{init: {
+  "flowchart": {
+    "nodeSpacing": 90,
+    "rankSpacing": 100
+  }
+}}%%
+
 flowchart LR
 
 A[Docker Compose]
