@@ -15,7 +15,13 @@
 
 </p>
 
-### Live Interactive Streamlit Dashboard Demo: **[Launch Dashboard](https://intelligent-forecasting-mlops-platform.streamlit.app/)**
+<p align="center">
+
+<a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
+<img src="https://img.shields.io/badge/🚀_Live_Dashboard-FF4B4B?style=for-the-badge"/>
+</a>
+
+</p>
 
 ---
 
