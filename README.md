@@ -210,43 +210,45 @@ The repository follows a modular architecture where data processing, machine lea
 The project follows a complete machine learning workflow from raw retail data to business decision support.
 
 ```mermaid
-%%{init: {
-  "flowchart": {
-    "nodeSpacing": 90,
-    "rankSpacing": 100
-  }
-}}%%
-
 flowchart LR
 
-A[Raw Sales Data]
+A[Retail Dataset]
+--> B[Data Engineering]
+--> C[Feature Engineering]
+--> D[LightGBM Model]
 
-B[Calendar Data]
+D --> E[MLflow Tracking]
+D --> F[28-Day Forecast]
 
-C[Sell Prices]
+F --> G[Inventory Engine]
 
-A --> D[Data Validation]
-
-B --> D
-
-C --> D
-
-D --> E[Data Transformation]
-
-E --> F[Feature Engineering]
-
-F --> G[LightGBM Training]
-
-G --> H[MLflow]
-
-G --> I[Future Forecast]
-
-I --> J[Inventory Recommendation]
-
-J --> K[Business Dashboard]
-
-J --> L[AI Assistant]
+G --> H[Business Reports]
 ```
+
+```mermaid
+flowchart LR
+
+A[Business Reports]
+
+A --> B[Streamlit Dashboard]
+
+A --> C[AI Assistant]
+
+C --> D[Rule-Based Router + Gemini API]
+
+E[Docker]
+
+E --> B
+
+E --> F[Flask REST API]
+
+F --> G[External Applications]
+
+H[GitHub Actions]
+
+H --> E
+```
+
 
 ---
 
