@@ -128,7 +128,7 @@ This project addresses that problem by forecasting future product demand and tra
 The platform is designed as a modular, production-oriented machine learning system where each component has a single responsibility. This separation improves maintainability, scalability, and deployment flexibility.
 
 ```mermaid
-flowchart LR
+flowchart TD
 
 A[Raw M5 Dataset]
 --> B[Data Processing]
@@ -210,7 +210,7 @@ The repository follows a modular architecture where data processing, machine lea
 The project follows a complete machine learning workflow from raw retail data to business decision support.
 
 ```mermaid
-flowchart TD
+flowchart LR
 
 A[Raw Sales Data]
 
@@ -328,7 +328,7 @@ To ensure reliable business responses, the assistant retrieves verified data thr
 ### **Assistant Architecture**
 
 ```mermaid
-flowchart TD
+flowchart LR
 
 A[Business Question]
 
