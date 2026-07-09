@@ -15,7 +15,7 @@
 
 </p>
 
-**Live Interactive Streamlit Dashboard Demo** : [Launch Dashboard](https://intelligent-forecasting-mlops-platform.streamlit.app/)**
+**Live Interactive Streamlit Dashboard Demo**: [Launch Dashboard](https://intelligent-forecasting-mlops-platform.streamlit.app/)**
 ---
 
 ## **Dashboard Preview**
