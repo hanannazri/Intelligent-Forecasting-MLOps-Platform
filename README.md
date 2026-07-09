@@ -10,6 +10,8 @@
 
 https://intelligent-forecasting-mlops-platform.streamlit.app/
 
+---
+
 ### 📸 **Dashboard Preview**
 
 <p align="center">
@@ -47,7 +49,7 @@ Retail businesses continuously face two expensive inventory challenges:
 - Sales opportunities are lost
 - Customer satisfaction decreases
 
-### 📈 **Overstocking**
+### **Overstocking**
 
 - Excess capital is locked in inventory
 - Warehousing costs increase
@@ -93,7 +95,7 @@ This project addresses that problem by forecasting future product demand and tra
 
 ---
 
-## 🏛️ **Project Architecture**
+## **Project Architecture**
 
 The platform is designed as a modular, production-oriented machine learning system where each component has a single responsibility. This separation improves maintainability, scalability, and deployment flexibility.
 
@@ -228,7 +230,7 @@ The resulting dataset serves as the foundation for forecasting, inventory recomm
 
 ---
 
-## ⚙️ **Feature Engineering**
+## **Feature Engineering**
 
 The forecasting model uses engineered features to capture historical demand patterns, seasonality, pricing behavior, and product-level characteristics.
 
@@ -276,26 +278,24 @@ MLflow is used to track model training experiments, including parameters, evalua
 
 ## **AI Business Assistant**
 
-The platform includes an AI-powered assistant that enables users to interact with verified inventory data using natural language.
+The platform includes an AI-powered assistant that enables users to query inventory insights using natural language.
 
-Rather than generating inventory values directly, the assistant retrieves information through approved backend functions before generating a business-friendly response.
+To ensure reliable business responses, the assistant retrieves verified data through predefined backend functions instead of generating inventory values directly.
 
 ### **Supported Business Questions**
 
-✔ Inventory Summary
-✔ Products Requiring Reorder
-✔ High-Risk Inventory
-✔ Product-Level Recommendations
+- Inventory summary
+- Products requiring replenishment
+- High-risk inventory items
+- Product-level reorder recommendations
 
-Example:
+### **Example Queries:**
 
 > Which products require immediate replenishment?
 > Show the inventory summary.
 > What is the reorder recommendation for this product?
 
----
-
-## AI Assistant Architecture
+### **Assistant Architecture**
 
 ```mermaid
 flowchart TD
@@ -319,7 +319,7 @@ F --> G[Natural Language Response]
 
 > High-confidence inventory queries are processed locally through deterministic routing. Gemini is used only when additional language understanding is required.
 
-This approach provides:
+### **Design Benefits**
 
 - Faster responses
 - Reduced API usage
