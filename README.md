@@ -21,7 +21,7 @@
 
 > **Explore the deployed application here**
 
-**🔗 Live Demo:**  YOUR_STREAMLIT_LINK
+**🔗 Live Demo:**  https://intelligent-forecasting-mlops-platform.streamlit.app/
 
 ---
 
