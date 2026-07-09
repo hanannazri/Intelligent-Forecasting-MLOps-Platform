@@ -15,13 +15,13 @@
 
 </p>
 
-<p align="center">
+<div align="center">
 
 <a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
-<img src="https://img.shields.io/badge/🚀_Live_Dashboard-FF4B4B?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Open%20Live%20Dashboard-Click%20Here-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white&labelColor=0E1117"/>
 </a>
 
-</p>
+</div>
 
 ---
 
