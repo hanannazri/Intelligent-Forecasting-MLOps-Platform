@@ -15,17 +15,6 @@
 
 </p>
 
-<div align="center">
-
-<a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
-  <img src="https://img.shields.io/badge/Open%20Live%20Dashboard-Click%20Here-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white&labelColor=0E1117"/>
-</a>
-
-</div>
-
-
-## **Dashboard Preview**
-
 <p align="center">
   <img src="assets/dashboard-overview.png" alt="Dashboard Overview" width="47%" />
   <img src="assets/product-recommend.png" alt="Product Recommendation" width="47%" />
@@ -40,6 +29,13 @@
   <img src="assets/ai-assistance1.png" alt="AI Inventory Assistant" width="75%" />
 </p>
 
+<div align="center">
+
+<a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
+  <img src="https://img.shields.io/badge/Open%20Live%20Dashboard-Click%20Here-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white&labelColor=0E1117"/>
+</a>
+
+</div>
 
 ## **Project Overview**
 
