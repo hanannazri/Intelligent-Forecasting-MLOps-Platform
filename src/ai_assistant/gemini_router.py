@@ -3,11 +3,18 @@ import os
 import re
 
 from dotenv import load_dotenv
-from google import genai
+try:
+    from google import genai
+    GEMINI_AVAILABLE = True
+except ImportError:
+    genai = None
+    GEMINI_AVAILABLE = False
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+client = None
+if GEMINI_AVAILABLE and os.getenv("GEMINI_API_KEY"):
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def extract_item_id(question: str):
     match = re.search(r"FOODS_\d+_\d+", question.upper())
