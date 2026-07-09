@@ -8,8 +8,6 @@ Predict retail demand, optimize inventory decisions, and explore business insigh
 
 ### Dashboard Preview
 
-<h2 align="center">📸 Dashboard Preview</h2>
-
 <p align="center">
   <img src="assets/dashboard-overview.png" alt="Dashboard Overview" width="49%" />
   <img src="assets/product-recommend.png" alt="Product Recommendation" width="49%" />
