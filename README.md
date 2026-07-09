@@ -37,7 +37,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/ai-assistance.png" alt="AI Inventory Assistant" width="75%" />
+  <img src="assets/ai-assistance1.png" alt="AI Inventory Assistant" width="75%" />
 </p>
 
 
