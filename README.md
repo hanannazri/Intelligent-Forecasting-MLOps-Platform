@@ -168,13 +168,13 @@ F --> G[Flask REST API]
 G --> H[External Applications]
 ```
 
-## 📂 Repository Structure
+## Repository Structure
 
 The project is organized into modular components that separate data engineering, machine learning, business logic, APIs, dashboard development, and AI services. Expand the section below to explore the repository layout.
 
 <details>
 
-<summary><b>Click to view the repository structure</b></summary>
+<summary><b> 📂 Expand repository structure</b></summary>
 
 <br>
 
@@ -182,32 +182,32 @@ The project is organized into modular components that separate data engineering,
 Intelligent-Forecasting-MLOps-Platform/
 │
 ├── .github/
-│   └── workflows/              # GitHub Actions CI pipeline
+│   └── workflows/          # GitHub Actions CI pipeline
 │
-├── data/
+├── data/                   # Raw, processed and engineered datasets
 │   ├── raw/
 │   ├── processed/
 │   └── features/
 │
-├── models/
+├── models/                 # Trained model artifacts
 │
-├── reports/
+├── reports/                # Forecasts and inventory reports
 │
 ├── src/
-│   ├── ai_assistant/
-│   ├── api/
-│   ├── business/
-│   ├── dashboard/
-│   ├── data/
-│   ├── features/
-│   └── models/
+│   ├── ai_assistant/       # AI assistant and routing logic
+│   ├── api/                # Flask REST API
+│   ├── business/           # Inventory recommendation engine
+│   ├── dashboard/          # Streamlit dashboard components
+│   ├── data/               # Data ingestion and preprocessing
+│   ├── features/           # Feature engineering pipeline
+│   └── models/             # Model training and forecasting
 │
-├── mlruns/
+├── mlruns/                 # MLflow experiment tracking
 │
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-└── streamlit_app.py
+├── Dockerfile              # Dashboard container
+├── docker-compose.yml      # Multi-service deployment
+├── requirements.txt        # Python dependencies
+└── streamlit_app.py        # Dashboard entry point
 
 ```
 
