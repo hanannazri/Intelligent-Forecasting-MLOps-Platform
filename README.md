@@ -128,27 +128,33 @@ This project addresses that problem by forecasting future product demand and tra
 The platform is designed as a modular, production-oriented machine learning system where each component has a single responsibility. This separation improves maintainability, scalability, and deployment flexibility.
 
 ```mermaid
-flowchart TD
+flowchart LR
 
 A[Raw M5 Dataset]
 --> B[Data Processing]
 --> C[Feature Engineering]
 --> D[LightGBM Model]
---> E[28-Day Forecast]
---> F[Inventory Recommendation Engine]
---> G[Business Reports]
 
-G --> H[Streamlit Dashboard]
-G --> I[AI Assistant]
+D --> E[MLflow Tracking]
+D --> F[28-Day Demand Forecast]
 
-I --> J[Rule-Based Router + Gemini API]
+F --> G[Inventory Recommendation Engine]
 
-D --> K[MLflow Tracking]
+G --> H[Business Reports]
+
+H --> I[Streamlit Dashboard]
+H --> J[AI Assistant]
+
+J --> K[Rule-Based Router + Gemini API]
 
 L[Flask REST API]
 --> M[External Applications]
 
 N[Docker]
+--> I
+
+N
+--> L
 
 O[GitHub Actions]
 --> N
