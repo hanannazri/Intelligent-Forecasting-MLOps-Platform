@@ -209,6 +209,13 @@ The repository follows a modular architecture where data processing, machine lea
 
 The project follows a complete machine learning workflow from raw retail data to business decision support.
 
+%%{init: {
+  "flowchart": {
+    "nodeSpacing": 90,
+    "rankSpacing": 100
+  }
+}}%%
+
 ```mermaid
 flowchart LR
 
