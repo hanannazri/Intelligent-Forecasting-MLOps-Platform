@@ -23,7 +23,6 @@
 
 </div>
 
----
 
 ## **Dashboard Preview**
 
@@ -41,7 +40,6 @@
   <img src="assets/ai-assistance.png" alt="AI Inventory Assistant" width="75%" />
 </p>
 
----
 
 ## **Project Overview**
 
@@ -49,7 +47,6 @@ The **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform** 
 
 Built on the M5 Forecasting dataset, the platform combines data engineering, feature engineering, machine learning, inventory intelligence, experiment tracking, REST APIs, containerized deployment, and interactive analytics into a single business-focused solution.
 
----
 ## 📊 Project at a Glance
 
 | Feature | Details |
@@ -62,8 +59,6 @@ Built on the M5 Forecasting dataset, the platform combines data engineering, fea
 | 🧠 AI Assistant Accuracy | **85%** |
 | 🐳 Deployment | **Docker & Docker Compose** |
 | 🔄 CI/CD | **GitHub Actions** |
-
----
 
 ## **Business Problem**
 
@@ -87,8 +82,6 @@ Making inventory decisions based solely on historical averages or manual plannin
 
 This project addresses that problem by forecasting future product demand and translating those forecasts into practical inventory recommendations that support more informed replenishment decisions.
 
----
-
 ##  **Platform Features**
 
 | Feature                   | Purpose                                         |
@@ -101,10 +94,6 @@ This project addresses that problem by forecasting future product demand and tra
 | 📈 MLflow                 | Tracks experiments and model versions           |
 | 🐳 Docker                 | Containerized deployment                        |
 | 🔄 GitHub Actions         | Automated CI pipeline                           |
-
-
-
----
 
 ## **Tech Stack**
 
@@ -121,49 +110,67 @@ This project addresses that problem by forecasting future product demand and tra
 | CI/CD               | GitHub Actions                                |
 | Version Control     | Git, GitHub                                   |
 
----
 
-## **Project Architecture**
+## System Workflow
 
-The platform is designed as a modular, production-oriented machine learning system where each component has a single responsibility. This separation improves maintainability, scalability, and deployment flexibility.
+The following diagrams provide a high-level overview of how data flows through the machine learning pipeline and how the application components interact to deliver forecasting, inventory recommendations, and business insights.
+
+### End-to-End Machine Learning Workflow
+
+The following workflow illustrates how raw retail sales data is transformed into demand forecasts, inventory recommendations, and business-ready insights through a production-oriented machine learning pipeline.
 
 ```mermaid
 flowchart TD
 
 A[Raw M5 Dataset]
 --> B[Data Processing]
---> C[Feature Engineering]
---> D[LightGBM Model]
+
+B --> C[Feature Engineering]
+
+C --> D[LightGBM Model]
 
 D --> E[MLflow Tracking]
+
 D --> F[28-Day Demand Forecast]
 
 F --> G[Inventory Recommendation Engine]
 
 G --> H[Business Reports]
-
-H --> I[Streamlit Dashboard]
-H --> J[AI Assistant]
-
-J --> K[Rule-Based Router + Gemini API]
-
-L[Flask REST API]
---> M[External Applications]
-
-N[Docker]
---> I
-
-N
---> L
-
-O[GitHub Actions]
---> N
 ```
----
 
+### System Deployment & User Interaction 
+
+This workflow illustrates how business reports are consumed by the dashboard and AI assistant, while Docker containerizes the application and GitHub Actions validates every code push through the CI pipeline.
+
+```mermaid
+flowchart TD
+
+A[Business Reports]
+
+A --> B[Streamlit Dashboard]
+
+A --> C[AI Assistant]
+
+C --> D[Rule-Based Router + Gemini API]
+
+E[GitHub Actions]
+
+E --> F[Docker]
+
+F --> B
+
+F --> G[Flask REST API]
+
+G --> H[External Applications]
+```
+
+## 📂 Repository Structure
+
+The project is organized into modular components that separate data engineering, machine learning, business logic, APIs, dashboard development, and AI services. Expand the section below to explore the repository layout.
 
 <details>
-<summary><b>📂 Repository Structure</b></summary>
+
+<summary><b>Click to view the repository structure</b></summary>
 
 <br>
 
@@ -174,81 +181,31 @@ Intelligent-Forecasting-MLOps-Platform/
 │   └── workflows/              # GitHub Actions CI pipeline
 │
 ├── data/
-│   ├── raw/                    # Original M5 dataset
-│   ├── processed/              # Cleaned datasets
-│   └── features/               # Engineered features
+│   ├── raw/
+│   ├── processed/
+│   └── features/
 │
-├── models/                     # Trained model artifacts
+├── models/
 │
-├── reports/                    # Forecasts & inventory recommendations
+├── reports/
 │
 ├── src/
-│   ├── ai_assistant/           # AI assistant & routing logic
-│   ├── api/                    # Flask REST API
-│   ├── business/               # Inventory recommendation engine
-│   ├── dashboard/              # Streamlit dashboard components
-│   ├── data/                   # Data ingestion & preprocessing
-│   ├── features/               # Feature engineering
-│   └── models/                 # Model training & forecasting
+│   ├── ai_assistant/
+│   ├── api/
+│   ├── business/
+│   ├── dashboard/
+│   ├── data/
+│   ├── features/
+│   └── models/
 │
-├── mlruns/                     # MLflow experiment tracking
+├── mlruns/
 │
-├── Dockerfile                  # Dashboard container
-├── docker-compose.yml          # Multi-container deployment
+├── Dockerfile
+├── docker-compose.yml
 ├── requirements.txt
-└── streamlit_app.py            # Dashboard entry point
-```
-
+└── streamlit_app.py
 </details>
-
-The repository follows a modular architecture where data processing, machine learning, APIs, dashboard components, and AI services are organized into independent modules.
-
----
-
-## **End-to-End Machine Learning Pipeline**
-
-The project follows a complete machine learning workflow from raw retail data to business decision support.
-
-```mermaid
-flowchart LR
-
-A[Retail Dataset]
---> B[Data Engineering]
---> C[Feature Engineering]
---> D[LightGBM Model]
-
-D --> E[MLflow Tracking]
-D --> F[28-Day Forecast]
-
-F --> G[Inventory Engine]
-
-G --> H[Business Reports]
 ```
-
-```mermaid
-flowchart LR
-
-A[Business Reports]
-
-A --> B[Streamlit Dashboard]
-
-A --> C[AI Assistant]
-
-C --> D[Rule-Based Router + Gemini API]
-
-E[Docker]
-
-E --> B
-
-E --> F[Flask REST API]
-
-F --> G[External Applications]
-
-H[GitHub Actions]
-
-H --> E
-```
-
 
 ---
 
@@ -265,8 +222,6 @@ The pipeline performs:
 
 The resulting dataset serves as the foundation for forecasting, inventory recommendations, dashboard reporting, and AI-assisted business queries.
 
----
-
 ## **Feature Engineering**
 
 The forecasting model uses engineered features to capture historical demand patterns, seasonality, pricing behavior, and product-level characteristics.
@@ -280,15 +235,11 @@ Feature categories include:
 
 These features help the model learn both short-term demand fluctuations and long-term purchasing trends.
 
----
-
 ## **Forecasting & Inventory Intelligence**
 
 The platform forecasts retail demand using a supervised machine learning model and transforms those predictions into actionable inventory recommendations.
 
-### **Forecasting**
-
-The final production model was selected after comparing multiple forecasting approaches against a baseline model.
+**Forecasting**: The final production model was selected after comparing multiple forecasting approaches against a baseline model.
 
 | Model | Purpose |
 |--------|---------|
@@ -296,9 +247,7 @@ The final production model was selected after comparing multiple forecasting app
 | XGBoost | Model comparison |
 | **LightGBM** | Final production model |
 
-### **Inventory Intelligence**
-
-Forecasts are converted into business-ready recommendations, including:
+**Inventory Intelligence**: Forecasts are converted into business-ready recommendations, including:
 
 - Recommended order quantity
 - Reorder point
@@ -312,8 +261,6 @@ This business layer bridges the gap between machine learning predictions and ope
 ## **MLflow Experiment Tracking**
 
 MLflow is used to track model training experiments, including parameters, evaluation metrics, and model artifacts. This ensures that experiments remain reproducible and makes it easier to compare different forecasting models throughout development.
-
----
 
 ## **AI Business Assistant**
 
@@ -373,6 +320,15 @@ F --> G[Natural Language Response]
 - Reliable business outputs
 - Graceful fallback during API quota limits
 
+### AI Assistant Evaluation
+
+| Metric | Result |
+|---------|--------|
+| Evaluation Questions | 20 |
+| Correct Intent Predictions | 20 |
+| Intent Classification Accuracy | **100%** |
+| Routing Strategy | Rule-Based + Gemini API |
+
 ---
 
 ## **REST API Layer**
@@ -408,7 +364,7 @@ The dashboard is intended for operational users who require business insights ra
 
 ---
 
-## **Continuous Integration**
+## **Continuous Integration (Github Actions)**
 
 GitHub Actions automatically validates the project whenever new code is pushed.
 
@@ -423,7 +379,7 @@ This helps ensure that the project remains reproducible and deployable across en
 
 ---
 
-## **Docker Deployment**
+## **Docker Containerization**
 
 The project is fully containerized using Docker and Docker Compose, providing a reproducible environment for both the Streamlit dashboard and Flask API.
 
@@ -471,7 +427,7 @@ The forecasting pipeline was evaluated using a time-based validation strategy, w
 
 The final production model was selected after comparing multiple forecasting approaches against a baseline model.
 
-### **Final Evaluation**
+**Final Evaluation**
 
 | Metric | Result |
 |----------|--------|
@@ -500,22 +456,6 @@ The platform helps answer business questions such as:
 - What inventory insights can be obtained through natural language?
 
 By combining forecasting with inventory intelligence, the platform bridges the gap between machine learning predictions and business operations.
-
----
-
-## **Project Results**
-
-| Metric                    |                  Result |
-| ------------------------- | ----------------------: |
-| Forecast Horizon          |                 28 days |
-| Products Forecasted       |                   1,437 |
-| Dataset Size              |      ~2.75 million rows |
-| Model Used                |                LightGBM |
-| MAE                       |                   1.204 |
-| RMSSE                     |                   0.667 |
-| Improvement over Baseline |                  12.96% |
-| AI Assistant Evaluation   | 20 / 20 correct intents |
-| AI Assistant Accuracy     |                    100% |
 
 ---
 
