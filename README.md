@@ -271,9 +271,11 @@ Forecasts are converted into business-ready recommendations, including:
 This business layer bridges the gap between machine learning predictions and operational inventory planning.
 
 ---
+
 ## **MLflow Experiment Tracking**
 
 MLflow is used to track model training experiments, including parameters, evaluation metrics, and model artifacts. This ensures that experiments remain reproducible and makes it easier to compare different forecasting models throughout development.
+
 ---
 
 ## **AI Business Assistant**
@@ -291,9 +293,9 @@ To ensure reliable business responses, the assistant retrieves verified data thr
 
 ### **Example Queries:**
 
-> Which products require immediate replenishment?
-> Show the inventory summary.
-> What is the reorder recommendation for this product?
+- Which products require immediate replenishment?
+- Show the inventory summary.
+- What is the reorder recommendation for this product?
 
 ### **Assistant Architecture**
 
@@ -330,8 +332,6 @@ F --> G[Natural Language Response]
 ---
 
 ## **REST API Layer**
-
-## 🌐 REST API
 
 The platform exposes forecasting and inventory capabilities through a lightweight Flask REST API, enabling integration with external applications and business workflows.
 
@@ -379,7 +379,7 @@ This helps ensure that the project remains reproducible and deployable across en
 
 ---
 
-## **Docker Deployment **
+## **Docker Deployment**
 
 The project is fully containerized using Docker and Docker Compose, providing a reproducible environment for both the Streamlit dashboard and Flask API.
 
@@ -414,7 +414,7 @@ docker compose up --build
 
 ---
 
-## 📊 **Model Performance**
+## **Model Performance**
 
 The forecasting pipeline was evaluated using a time-based validation strategy, where the most recent observations were held out as the test period.
 
@@ -486,7 +486,7 @@ The platform was designed with practical software engineering principles to impr
 
 ---
 
-## 🚀 **Future Improvements**
+## **Future Improvements**
 
 Potential enhancements include:
 
@@ -509,11 +509,11 @@ Special thanks to the open-source community and the developers of Python, LightG
 
 ---
 
-### 📬 **Connect With Me**
+### **Connect With Me**
 
 **Hanan**
 
 Aspiring Data Scientist & ML Engineer
 
-- 💼 LinkedIn: https://linkedin.com/in/hanan-nazri
-- 💻 GitHub: https://github.com/hanannazri
+-  LinkedIn: https://linkedin.com/in/hanan-nazri
+-  GitHub: https://github.com/hanannazri
