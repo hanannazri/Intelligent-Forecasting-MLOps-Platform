@@ -50,6 +50,20 @@ The **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform** 
 Built on the M5 Forecasting dataset, the platform combines data engineering, feature engineering, machine learning, inventory intelligence, experiment tracking, REST APIs, containerized deployment, and interactive analytics into a single business-focused solution.
 
 ---
+## 📊 Project at a Glance
+
+| Feature | Details |
+|----------|----------|
+| 📦 Products Analyzed | **1,437** |
+| 📅 Forecast Horizon | **28 Days** |
+| 🤖 Forecasting Model | **LightGBM** |
+| 📈 Baseline Improvement | **12.96%** |
+| 🎯 MAE | **1.204** |
+| 🧠 AI Assistant Accuracy | **85%** |
+| 🐳 Deployment | **Docker & Docker Compose** |
+| 🔄 CI/CD | **GitHub Actions** |
+
+---
 
 ## **Business Problem**
 
