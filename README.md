@@ -32,8 +32,7 @@
 
 ## 🚀 Explore the Live Dashboard
 
-Experience the complete interactive dashboard, inventory recommendations,
-business insights, and AI-powered assistant in real time.
+Explore the complete retail analytics platform, including demand forecasting, inventory recommendations, business insights, and the AI-powered assistant.
 
 <div align="center">
 
@@ -42,8 +41,6 @@ business insights, and AI-powered assistant in real time.
 </a>
 
 </div>
-
-<div align="center">
 
 ## **Project Overview**
 
