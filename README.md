@@ -30,7 +30,7 @@
 </p>
 
 
-## 🚀 Explore the Live Dashboard
+## Explore the Live Dashboard
 
 Explore the complete retail analytics platform, including demand forecasting, inventory recommendations, business insights, and the AI-powered assistant.
 
@@ -42,13 +42,15 @@ Explore the complete retail analytics platform, including demand forecasting, in
 
 </div>
 
+---
+
 ## **Project Overview**
 
 The **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform** is a production-oriented analytics application that helps retailers forecast product demand, optimize inventory decisions, and explore business insights through an interactive dashboard and AI-powered assistant.
 
 Built on the M5 Forecasting dataset, the platform combines data engineering, feature engineering, machine learning, inventory intelligence, experiment tracking, REST APIs, containerized deployment, and interactive analytics into a single business-focused solution.
 
-## 📊 Project at a Glance
+## Project at a Glance
 
 | Feature | Details |
 |----------|----------|
@@ -111,6 +113,7 @@ This project addresses that problem by forecasting future product demand and tra
 | CI/CD               | GitHub Actions                                |
 | Version Control     | Git, GitHub                                   |
 
+---
 
 ## System Workflow
 
@@ -440,7 +443,6 @@ The final production model was selected after comparing multiple forecasting app
 
 The trained model demonstrated consistent forecasting performance while maintaining efficient inference, making it suitable for downstream inventory planning.
 
----
 
 ## **Business Impact**
 
@@ -457,8 +459,6 @@ The platform helps answer business questions such as:
 - What inventory insights can be obtained through natural language?
 
 By combining forecasting with inventory intelligence, the platform bridges the gap between machine learning predictions and business operations.
-
----
 
 ## **Engineering Highlights**
 
@@ -492,14 +492,11 @@ Potential enhancements include:
 - Support real-time inventory updates
 - Expand the AI Assistant with analytical capabilities and additional business workflows
 
----
 ### **Acknowledgements**
 
 This project uses the **M5 Forecasting** dataset, one of the most widely used public benchmarks for retail demand forecasting research.
 
 Special thanks to the open-source community and the developers of Python, LightGBM, Streamlit, Flask, MLflow, Docker, and GitHub Actions for making projects like this possible.
-
----
 
 ### **Connect With Me**
 
