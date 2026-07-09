@@ -134,11 +134,11 @@ A[Raw M5 Dataset] --> B[Data Engineering]
 
 B --> C[Feature Engineering]
 
-C --> D[Model Training]
+C --> D[LightGBM Model Training]
 
-D --> E[MLflow Tracking]
+D --> E[MLflow Experiment Tracking]
 
-D --> F[28-Day Forecast]
+D --> F[28-Day Demand Forecast]
 
 F --> G[Inventory Recommendation Engine]
 
@@ -148,58 +148,77 @@ H --> I[Streamlit Dashboard]
 
 H --> J[AI Assistant]
 
-D --> K[Flask REST API]
+J --> N[Rule-Based Router]
 
-K --> L[External Applications]
+N -->|Complex Queries| O[Gemini API]
 
-I --> M[Business Users]
+N -->|Business Functions| P[Inventory Data]
 
-J --> M
+P --> J
+
+D --> Q[Flask REST API]
+
+Q --> R[External Applications]
+
+I --> S[Business Users]
+
+J --> S
+
+subgraph Deployment
+T[Docker & Docker Compose]
+end
+
+subgraph CI/CD
+U[GitHub Actions]
+end
+
+T --> I
+T --> Q
+
+U --> T
 ```
 
 ---
 
 
-````markdown
 <details>
-
 <summary><b>📂 Repository Structure</b></summary>
 
 <br>
 
 ```text
 Intelligent-Forecasting-MLOps-Platform/
-
-│
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── features/
-│
-├── models/
-│
-├── reports/
-│
-├── src/
-│   ├── api/
-│   ├── business/
-│   ├── dashboard/
-│   ├── data/
-│   ├── features/
-│   ├── models/
-│   └── ai_assistant/
-│
-├── mlruns/
 │
 ├── .github/
-│   └── workflows/
+│   └── workflows/              # GitHub Actions CI pipeline
 │
-├── Dockerfile
-├── docker-compose.yml
+├── data/
+│   ├── raw/                    # Original M5 dataset
+│   ├── processed/              # Cleaned datasets
+│   └── features/               # Engineered features
+│
+├── models/                     # Trained model artifacts
+│
+├── reports/                    # Forecasts & inventory recommendations
+│
+├── src/
+│   ├── ai_assistant/           # AI assistant & routing logic
+│   ├── api/                    # Flask REST API
+│   ├── business/               # Inventory recommendation engine
+│   ├── dashboard/              # Streamlit dashboard components
+│   ├── data/                   # Data ingestion & preprocessing
+│   ├── features/               # Feature engineering
+│   └── models/                 # Model training & forecasting
+│
+├── mlruns/                     # MLflow experiment tracking
+│
+├── Dockerfile                  # Dashboard container
+├── docker-compose.yml          # Multi-container deployment
 ├── requirements.txt
-└── streamlit_app.py
+└── streamlit_app.py            # Dashboard entry point
+```
 
-````
+</details>
 
 The repository follows a modular architecture where data processing, machine learning, APIs, dashboard components, and AI services are organized into independent modules.
 
