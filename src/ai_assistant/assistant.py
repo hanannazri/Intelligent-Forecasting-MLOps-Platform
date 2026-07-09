@@ -1,6 +1,10 @@
 from src.ai_assistant.tool_registry import execute_tool, FALLBACK_MESSAGE
-from src.ai_assistant.gemini_router import route_with_gemini
 
+try:
+    from src.ai_assistant.gemini_router import route_with_gemini
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
 
 def format_answer(intent: str, data):
     if intent == "fallback":
@@ -50,7 +54,18 @@ def format_answer(intent: str, data):
 
 
 def answer_question(question: str):
-    route = route_with_gemini(question)
+    if GEMINI_AVAILABLE:
+        route = route_with_gemini(question)
+    else:
+        from src.ai_assistant.intent_router import route_question
+
+        intent = route_question(question)
+
+        # Build the same structure Gemini returns
+        route = {
+            "intent": intent,
+            "arguments": {}
+        }
 
     intent = route.get("intent", "fallback")
     arguments = route.get("arguments", {})
