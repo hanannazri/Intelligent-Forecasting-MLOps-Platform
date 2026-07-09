@@ -37,8 +37,6 @@
 
 </div>
 
----
-
 <div align="center">
 
 ## 🚀 Explore the Live Dashboard
@@ -50,6 +48,8 @@ business insights, and AI-powered assistant in real time.
 
 <a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
 <img>
+</p>
+
 
 ## **Project Overview**
 
