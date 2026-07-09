@@ -29,6 +29,12 @@
   <img src="assets/ai-assistance1.png" alt="AI Inventory Assistant" width="75%" />
 </p>
 
+
+## 🚀 Explore the Live Dashboard
+
+Experience the complete interactive dashboard, inventory recommendations,
+business insights, and AI-powered assistant in real time.
+
 <div align="center">
 
 <a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
@@ -38,18 +44,6 @@
 </div>
 
 <div align="center">
-
-## 🚀 Explore the Live Dashboard
-
-Experience the complete interactive dashboard, inventory recommendations,
-business insights, and AI-powered assistant in real time.
-
-<br>
-
-<a href="https://intelligent-forecasting-mlops-platform.streamlit.app/">
-<img>
-</p>
-
 
 ## **Project Overview**
 
