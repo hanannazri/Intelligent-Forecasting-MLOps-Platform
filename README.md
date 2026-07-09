@@ -2,13 +2,7 @@
 
 *Predict retail demand, optimize inventory decisions, and explore business insights through machine learning, interactive analytics, and an AI-powered assistant.*
 
----
-
-### 👉 **Live Demo**
-
-**Interactive Streamlit Dashboard**
-
-https://intelligent-forecasting-mlops-platform.streamlit.app/
+**Live Interactive Streamlit Dashboard Demo** : https://intelligent-forecasting-mlops-platform.streamlit.app/
 
 ---
 
