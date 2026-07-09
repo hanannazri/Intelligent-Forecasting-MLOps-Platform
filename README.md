@@ -6,7 +6,7 @@
 
 ---
 
-### 📸 **Dashboard Preview**
+## 📸 **Dashboard Preview**
 
 <p align="center">
   <img src="assets/dashboard-overview.png" alt="Dashboard Overview" width="47%" />
