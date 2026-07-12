@@ -475,24 +475,24 @@ def show_footer(last_updated):
 
 def render_ai_assistant_section():
     st.markdown(
-    """
-    <div class="section-title">🤖 AI Inventory Assistant</div>
-    <div class="subtitle">
-        Interact with your inventory. Ask about stock levels,
-        reorder recommendations, demand forecasts, and inventory health.
-    </div>
-    """,
-    unsafe_allow_html=True,
+        """
+        <div class="section-title">🤖 AI Inventory Assistant</div>
+        <div class="subtitle">
+            Interact with your inventory. Ask about stock levels,
+            reorder recommendations, demand forecasts, and inventory health.
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    if "ai_chat_history" not in st.session_state:
-        st.session_state.ai_chat_history = []
+    # Store only the latest question and answer
+    if "latest_ai_question" not in st.session_state:
+        st.session_state.latest_ai_question = None
 
-    for message in st.session_state.ai_chat_history:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+    if "latest_ai_answer" not in st.session_state:
+        st.session_state.latest_ai_answer = None
 
     with st.form("ai_assistant_form", clear_on_submit=True):
         user_question = st.text_input(
@@ -504,21 +504,23 @@ def render_ai_assistant_section():
 
     if submitted:
         if user_question.strip():
-            st.session_state.ai_chat_history.append(
-                {"role": "user", "content": user_question}
-            )
+            with st.spinner("Analyzing inventory data..."):
+                answer = answer_question(user_question)
 
-            with st.chat_message("user"):
-                st.markdown(user_question)
-
-            with st.chat_message("assistant"):
-                with st.spinner("Analyzing inventory data..."):
-                    answer = answer_question(user_question)
-                    st.markdown(answer)
-
-            st.session_state.ai_chat_history.append(
-                {"role": "assistant", "content": answer}
-            )
+            # Overwrite the previous question and answer
+            st.session_state.latest_ai_question = user_question
+            st.session_state.latest_ai_answer = answer
         else:
             st.warning("Please enter a question.")
-    st.divider()    
+
+    # Display only the latest question
+    if st.session_state.latest_ai_question:
+        with st.chat_message("user"):
+            st.markdown(st.session_state.latest_ai_question)
+
+    # Display only the latest answer
+    if st.session_state.latest_ai_answer:
+        with st.chat_message("assistant"):
+            st.markdown(st.session_state.latest_ai_answer)
+
+    st.divider()
