@@ -1,9 +1,9 @@
-streamlit==1.37.1
+flask==3.0.3
 pandas==2.2.2
 numpy==1.26.4
-plotly==5.24.1
 scikit-learn==1.5.2
 joblib==1.4.2
 python-dotenv==1.0.1
-flask==3.0.3
-google-genai
+lightgbm==4.6.0
+mlflow
+pyarrow

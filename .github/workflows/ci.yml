@@ -30,6 +30,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install -r requirements-api.txt
 
       - name: Verify core package imports
         run: |
@@ -38,7 +39,12 @@ jobs:
       - name: Verify project package imports
         run: |
           python -c "import src; print('src package import successful')"
-
+ 
+      - name: Verify API and ML imports
+        run: |
+            
+          python -c "import flask, lightgbm, mlflow, pandas, numpy; print('API and ML imports successful')"    
+      
       - name: Build Docker image
         run: |
           docker build -t demand-forecast-platform .
