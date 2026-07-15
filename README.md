@@ -1,4 +1,4 @@
-#  **Intelligent Retail Demand Forecasting & Inventory Intelligence Platform**
+#  **Retail Demand Forecasting & Inventory Intelligence Platform**
 
 *Predict retail demand, optimize inventory decisions, and explore business insights through machine learning, interactive analytics, and an AI-powered assistant.*
 
